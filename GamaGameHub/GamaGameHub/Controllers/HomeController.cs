@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-﻿using GamaGameHub.Models;
 using Microsoft.AspNetCore.Mvc;
 =======
 ﻿using Microsoft.AspNetCore.Mvc;
@@ -27,13 +25,5 @@ namespace GamaGameHub.Controllers
             return View();
         }
 
-<<<<<<< Updated upstream
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-=======
->>>>>>> Stashed changes
     }
 }

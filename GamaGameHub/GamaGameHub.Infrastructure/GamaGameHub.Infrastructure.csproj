@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< Updated upstream
-    <Folder Include="Data\Entities\" />
-=======
->>>>>>> Stashed changes
     <Folder Include="Data\Common\" />
     <Folder Include="Data\Constants\" />
     <Folder Include="Data\Configuration\" />
