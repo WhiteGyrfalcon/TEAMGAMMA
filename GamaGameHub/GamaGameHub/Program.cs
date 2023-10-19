@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 using GamaGameHub.Data;
+=======
+using GamaGameHub.Infrastructure.Data;
+>>>>>>> Stashed changes
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,12 +16,20 @@ namespace GamaGameHub
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+<<<<<<< Updated upstream
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
+=======
+            builder.Services.AddDbContext<GamaGameHubDbContext>(options =>
+>>>>>>> Stashed changes
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+<<<<<<< Updated upstream
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+=======
+                .AddEntityFrameworkStores<GamaGameHubDbContext>();
+>>>>>>> Stashed changes
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
