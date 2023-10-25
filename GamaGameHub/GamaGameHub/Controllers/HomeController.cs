@@ -1,7 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-=======
-﻿using Microsoft.AspNetCore.Mvc;
->>>>>>> Stashed changes
 using System.Diagnostics;
 
 namespace GamaGameHub.Controllers
