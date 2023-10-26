@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using GamaGameHub.Infrastructure.Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,10 @@ using System.Threading.Tasks;
 
 namespace GamaGameHub.Infrastructure.Data
 {
-    internal class GamaGameHubDbContext/*: IdentityDbContext<User>*/
+    public class GamaGameHubDbContext : IdentityDbContext<User>
     {
+        public GamaGameHubDbContext(DbContextOptions options) : base(options)
+        {
+        }
     }
 }
