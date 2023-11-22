@@ -1,4 +1,4 @@
-/* ===================================================================
+    /* ===================================================================
  * Abstract 2.0.0 - Main JS
  *
  * ------------------------------------------------------------------- */ 
@@ -347,6 +347,18 @@
 
     }; // end ssBackToTop
 
+    const gameDeveloperCheckBoxClick = function () {
+        $('#gameDeveloperCheckBox').on('click', function () {
+            if (document.getElementById('gameDeveloperCheckBox').checked) {
+                document.getElementById('additionalInformation').style.display = "block";
+                document.getElementById('yearOfCreating').style.display = "block";
+            }
+            else {
+                document.getElementById('additionalInformation').style.display = "none";
+                document.getElementById('yearOfCreating').style.display = "none";
+            }
+        });
+    }; 
 
    /* Initialize
     * ------------------------------------------------------ */
@@ -362,7 +374,7 @@
         ssSmoothScroll();
         ssAjaxChimp();
         ssBackToTop();
-
+        gameDeveloperCheckBoxClick();
     })();
 
 })(jQuery);
