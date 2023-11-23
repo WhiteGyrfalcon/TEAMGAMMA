@@ -49,5 +49,6 @@ namespace GamaGameHub.Infrastructure.Data.Entities
         public bool IsActive { get; set; }
 
         public ICollection<PostComment> Comments { get; set; } = new HashSet<PostComment>();
+        public ICollection<Image> Images { get; set; } = new HashSet<Image>();
     }
 }

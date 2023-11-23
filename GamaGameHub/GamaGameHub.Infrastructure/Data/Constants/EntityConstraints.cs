@@ -65,6 +65,12 @@ namespace GamaGameHub.Infrastructure.Data.Constants
             public const int ContentMinLength = 10;
         }
 
+        public static class GameCreatorConstraints
+        {
+            public const int AdditionalInformationMaxLength = 200;
+            public const int AdditionalInformationMinLength = 10;
+        }
+
         public static class GameConstraints
         {
             public const int NameMaxLength = 50;

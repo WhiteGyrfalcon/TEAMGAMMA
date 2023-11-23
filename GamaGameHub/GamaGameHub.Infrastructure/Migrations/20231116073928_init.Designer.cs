@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamaGameHub.Infrastructure.Migrations
 {
     [DbContext(typeof(GamaGameHubDbContext))]
-    [Migration("20231026072407_Init")]
-    partial class Init
+    [Migration("20231116073928_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,21 @@ namespace GamaGameHub.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("CategoryGame", b =>
+                {
+                    b.Property<int>("CategoriesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GamesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoriesId", "GamesId");
+
+                    b.HasIndex("GamesId");
+
+                    b.ToTable("CategoryGame");
+                });
 
             modelBuilder.Entity("GamaGameHub.Infrastructure.Data.Entities.Category", b =>
                 {
@@ -37,17 +52,12 @@ namespace GamaGameHub.Infrastructure.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GameId");
 
                     b.ToTable("Categories");
                 });
@@ -125,6 +135,11 @@ namespace GamaGameHub.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("AdditionalInformation")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -155,17 +170,12 @@ namespace GamaGameHub.Infrastructure.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GameId");
 
                     b.ToTable("Genre");
                 });
@@ -184,6 +194,9 @@ namespace GamaGameHub.Infrastructure.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UrlPath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -191,6 +204,8 @@ namespace GamaGameHub.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("GameId");
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("Images");
                 });
@@ -422,6 +437,10 @@ namespace GamaGameHub.Infrastructure.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ProfilePictureUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -444,6 +463,21 @@ namespace GamaGameHub.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("GameGenre", b =>
+                {
+                    b.Property<int>("GamesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GenresId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GamesId", "GenresId");
+
+                    b.HasIndex("GenresId");
+
+                    b.ToTable("GameGenre");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -583,15 +617,19 @@ namespace GamaGameHub.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("GamaGameHub.Infrastructure.Data.Entities.Category", b =>
+            modelBuilder.Entity("CategoryGame", b =>
                 {
-                    b.HasOne("GamaGameHub.Infrastructure.Data.Entities.Game", "Game")
-                        .WithMany("Categories")
-                        .HasForeignKey("GameId")
+                    b.HasOne("GamaGameHub.Infrastructure.Data.Entities.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Game");
+                    b.HasOne("GamaGameHub.Infrastructure.Data.Entities.Game", null)
+                        .WithMany()
+                        .HasForeignKey("GamesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GamaGameHub.Infrastructure.Data.Entities.Favourite", b =>
@@ -635,17 +673,6 @@ namespace GamaGameHub.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("GamaGameHub.Infrastructure.Data.Entities.Genre", b =>
-                {
-                    b.HasOne("GamaGameHub.Infrastructure.Data.Entities.Game", "Game")
-                        .WithMany("Genres")
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-                });
-
             modelBuilder.Entity("GamaGameHub.Infrastructure.Data.Entities.Image", b =>
                 {
                     b.HasOne("GamaGameHub.Infrastructure.Data.Entities.Game", "Game")
@@ -653,6 +680,10 @@ namespace GamaGameHub.Infrastructure.Migrations
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("GamaGameHub.Infrastructure.Data.Entities.Post", null)
+                        .WithMany("Images")
+                        .HasForeignKey("PostId");
 
                     b.Navigation("Game");
                 });
@@ -725,6 +756,21 @@ namespace GamaGameHub.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("GameGenre", b =>
+                {
+                    b.HasOne("GamaGameHub.Infrastructure.Data.Entities.Game", null)
+                        .WithMany()
+                        .HasForeignKey("GamesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GamaGameHub.Infrastructure.Data.Entities.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -778,11 +824,7 @@ namespace GamaGameHub.Infrastructure.Migrations
 
             modelBuilder.Entity("GamaGameHub.Infrastructure.Data.Entities.Game", b =>
                 {
-                    b.Navigation("Categories");
-
                     b.Navigation("Favourites");
-
-                    b.Navigation("Genres");
 
                     b.Navigation("Images");
 
@@ -797,6 +839,8 @@ namespace GamaGameHub.Infrastructure.Migrations
             modelBuilder.Entity("GamaGameHub.Infrastructure.Data.Entities.Post", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("GamaGameHub.Infrastructure.Data.Entities.Review", b =>
