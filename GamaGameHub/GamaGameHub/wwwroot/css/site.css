@@ -16,6 +16,33 @@ html {
 body {
   margin-bottom: 60px;
 }*/
+.profilePictureLabel {
+    cursor: pointer;
+    /* Style as you please, it will become the visible UI component. */
+}
+.upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.game-developer-label{
+    margin-top: 10px;
+}
+
+.register-heading-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+
+.game-developer-slider-container {
+    display: flex;
+    gap: 15px;
+    flex-direction: row;
+    align-content: end
+}
+
 .login-register-nav-item {
     flex: 1;
 }
@@ -31,6 +58,65 @@ body {
     justify-content: center;
     flex-direction: row;
 }
+
+.mandatory {
+    color: red;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+    /* Hide default HTML checkbox */
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
 /* =================================================================== 
  * Abstract Vendor/Third Party CSS
  * Template Ver. 2.0.0 
@@ -3284,19 +3370,19 @@ input[type="button"] {
     text-align: center;
 }
 
-.pgn ul {
-    display: inline-block;
-    list-style: none;
-    margin-left: 0;
-    position: relative;
-    padding: 0 6rem;
-}
+    .pgn ul {
+        display: inline-block;
+        list-style: none;
+        margin-left: 0;
+        position: relative;
+        padding: 0 6rem;
+    }
 
-.pgn ul li {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-}
+        .pgn ul li {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+        }
 
 .pgn__num {
     display: inline-block;
@@ -3313,10 +3399,10 @@ input[type="button"] {
     transition: all, .3s, ease-in-out;
 }
 
-.pgn__num:hover {
-    background: var(--color-gray-18);
-    color: var(--color-white);
-}
+    .pgn__num:hover {
+        background: var(--color-gray-18);
+        color: var(--color-white);
+    }
 
 .pgn .current, .pgn .current:hover {
     background-color: var(--color-gray-18);
@@ -3360,27 +3446,27 @@ input[type="button"] {
     transform: translate3d(0, -50%, 0);
 }
 
-.pgn__prev:hover, .pgn__next:hover {
-    background-color: var(--color-gray-18);
-}
+    .pgn__prev:hover, .pgn__next:hover {
+        background-color: var(--color-gray-18);
+    }
 
-.pgn__prev svg, .pgn__next svg {
-    height: 2.4rem;
-    width: 2.4rem;
-    -webkit-transition: all, .3s, ease-in-out;
-    transition: all, .3s, ease-in-out;
-}
+    .pgn__prev svg, .pgn__next svg {
+        height: 2.4rem;
+        width: 2.4rem;
+        -webkit-transition: all, .3s, ease-in-out;
+        transition: all, .3s, ease-in-out;
+    }
 
-.pgn__prev svg path, .pgn__next svg path {
-    fill: var(--color-text-dark);
-}
+        .pgn__prev svg path, .pgn__next svg path {
+            fill: var(--color-text-dark);
+        }
 
-.pgn__prev:hover svg path, 
-.pgn__prev:focus svg path, 
-.pgn__next:hover svg path, 
-.pgn__next:focus svg path {
-    fill: white;
-}
+    .pgn__prev:hover svg path,
+    .pgn__prev:focus svg path,
+    .pgn__next:hover svg path,
+    .pgn__next:focus svg path {
+        fill: white;
+    }
 
 .pgn__prev {
     left: 0;
@@ -3390,16 +3476,16 @@ input[type="button"] {
     right: 0;
 }
 
-.pgn__prev.inactive, 
-.pgn__next.inactive {
-    opacity: 0.4;
-    cursor: default;
-}
+    .pgn__prev.inactive,
+    .pgn__next.inactive {
+        opacity: 0.4;
+        cursor: default;
+    }
 
-.pgn__prev.inactive:hover, 
-.pgn__next.inactive:hover {
-    background-color: transparent;
-}
+        .pgn__prev.inactive:hover,
+        .pgn__next.inactive:hover {
+            background-color: transparent;
+        }
 
 
 /* ------------------------------------------------------------------- 

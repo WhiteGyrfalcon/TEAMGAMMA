@@ -1,12 +1,14 @@
-﻿
+
+@using GamaGameHub.Infrastructure.Data.Entities;
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
 <ul class="s-header__nav row">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+        <li class="nav-item @(@ViewData["Title"]?.ToString() == "Profile" ? "current" : "")">
+        <a  class="nav-link text-dark" asp-area="Identity" asp-controller="User" asp-page="Profile" title="Profile">Hello @User.Identity?.Name!</a>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -16,10 +18,10 @@
 }
 else
 {
-        <li class="login-register-nav-item">
+        <li class="login-register-nav-item @(@ViewData["Title"]?.ToString() == "Register" ? "current" : "")">
             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
     </li>
-    <li class="login-register-nav-item">
+        <li class="login-register-nav-item @(@ViewData["Title"]?.ToString() == "Login" ? "current" : "")">
             <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
     </li>
 }
