@@ -1,3 +1,4 @@
+using GamaGameHub.Infrastructure.Data.Configuration;
 using GamaGameHub.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,14 @@ namespace GamaGameHub.Infrastructure.Data
                 .Property(u => u.Email)
                 .HasMaxLength(60)
                 .IsRequired();
+
+            builder.ApplyConfiguration(new GameCreatorConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new UsersRolesConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new GenreConfiguration());
+            builder.ApplyConfiguration(new GameConfiguration());
 
             base.OnModelCreating(builder);
         }
