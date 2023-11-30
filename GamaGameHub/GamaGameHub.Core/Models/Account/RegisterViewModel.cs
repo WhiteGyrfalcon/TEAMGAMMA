@@ -50,6 +50,6 @@ namespace GamaGameHub.Core.Models.Account
         [StringLength(AdditionalInformationMaxLength, MinimumLength = AdditionalInformationMinLength)]
         public string? AdditionalInformation { get; set; }
 
-        public IFormFile? ProfilePictureUrl { get; set; }
+        public IFormFile? ProfilePicture { get; set; }
     }
 }

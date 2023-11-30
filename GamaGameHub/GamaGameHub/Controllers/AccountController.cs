@@ -76,8 +76,7 @@ namespace GamaGameHub.Controllers
                 await userManager.AddToRoleAsync(user, "Client");
             }
 
-
-            user.ProfilePictureUrl = await this.imageService.UploadImage(model.ProfilePictureUrl, "images", user);
+            user.ProfilePictureUrl = await this.imageService.UploadImage(model.ProfilePicture, "images", user);
             await userManager.UpdateAsync(user);
 
             if (result.Succeeded)
