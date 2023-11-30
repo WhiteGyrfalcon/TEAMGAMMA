@@ -4,6 +4,7 @@ using GamaGameHub.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamaGameHub.Infrastructure.Migrations
 {
     [DbContext(typeof(GamaGameHubDbContext))]
-    partial class GamaGameHubDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231130075537_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -675,7 +677,7 @@ namespace GamaGameHub.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Aleksandar Batenberg 28",
                             City = "Karnobat",
-                            ConcurrencyStamp = "069aa833-3905-41a7-b4f4-0d808a8a80c9",
+                            ConcurrencyStamp = "23e3adc3-93f9-4abf-8128-c1c9607b69ee",
                             Country = "Bulgaria",
                             Email = "petar@gmail.com",
                             EmailConfirmed = false,
@@ -683,11 +685,11 @@ namespace GamaGameHub.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "PETAR@GMAIL.COM",
                             NormalizedUserName = "PETAR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEHGU8Umf6c6HQy2zDcYZjXkDMaTLUtksxHskCDlQFapUQfLG72S8Rl5saMeNgnkzw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENjgInECKzg55in0jmueiEHPKzvpp+5mJs9mVR5Ev7Wqf4fYYVLRQCrwQPlY1uJX7Q==",
                             PhoneNumber = "0893052673",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE",
-                            SecurityStamp = "0cd197e2-1a50-4a03-96e6-675104d66e3d",
+                            SecurityStamp = "c7ce00d9-55f9-4f1d-b08d-06c8ad570337",
                             TwoFactorEnabled = false,
                             UserName = "petar"
                         },
@@ -697,7 +699,7 @@ namespace GamaGameHub.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Hristo Botev 15",
                             City = "Kazanlak",
-                            ConcurrencyStamp = "0886e400-e988-4c77-9113-5ecb301eb4b2",
+                            ConcurrencyStamp = "31c39ef9-c419-4852-a96a-81423511db29",
                             Country = "Bulgaria",
                             Email = "silvia@gmail.com",
                             EmailConfirmed = false,
@@ -705,11 +707,11 @@ namespace GamaGameHub.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SILVIA@GMAIL.COM",
                             NormalizedUserName = "SILVIA",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAkPiSB/TnClOsLo9r1lOKDn50HLarJsr5WQu3die2ZR9J9JuHCApymxuD9OXXdGng==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPd69TvJOS0eK573OhC/ASdvhwGFc2/rM+moKg4jBw0gmJ9DaeyXdxFqQtnMhQnb2A==",
                             PhoneNumber = "0888752419",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE",
-                            SecurityStamp = "35b53140-1918-4453-85e4-0c15c7468c26",
+                            SecurityStamp = "8dad2e61-332f-4f22-ab1a-d6649321ea11",
                             TwoFactorEnabled = false,
                             UserName = "silvia"
                         },
@@ -719,7 +721,7 @@ namespace GamaGameHub.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Redwood Shores Parkway 209",
                             City = "Redwood City, Northern California",
-                            ConcurrencyStamp = "61697a1d-8ceb-489c-b6df-80cc946e5a5c",
+                            ConcurrencyStamp = "2d7b4413-194e-4880-a79d-57b958c59e2b",
                             Country = "USA",
                             Email = "electronicarts@gmail.com",
                             EmailConfirmed = false,
@@ -727,11 +729,11 @@ namespace GamaGameHub.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ELECTRONICARTS@GMAIL.COM",
                             NormalizedUserName = "ELECTRONIC ARTS",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ7IhlD4ThmfJVtI+4LvKT+TkDvoE3Z+5D1jCVrYoDAvKT6EfpWiiFtExCLq1TDbHQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFG4fb7+omxZzP26McgDQ7pa2KZuOMb/8fV50hn9RmVblV4jfam+lfuNruBZMe/mMA==",
                             PhoneNumber = "16059719337",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE",
-                            SecurityStamp = "9d484e6a-c3b3-4e34-83bf-e2684b5b8082",
+                            SecurityStamp = "0556eb5a-cbcf-4e5b-b4c9-104d68918f02",
                             TwoFactorEnabled = false,
                             UserName = "Electronic Arts"
                         },
@@ -741,7 +743,7 @@ namespace GamaGameHub.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Main Street 22",
                             City = "Toronto",
-                            ConcurrencyStamp = "8fe73332-f884-4f24-8009-3dba79839e84",
+                            ConcurrencyStamp = "6e79ede9-8948-4ba0-989d-5bfc6d91d329",
                             Country = "Canada",
                             Email = "bhvrinteractive@gmail.com",
                             EmailConfirmed = false,
@@ -749,11 +751,11 @@ namespace GamaGameHub.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "BHVRINTERACTIVE@GMAIL.COM",
                             NormalizedUserName = "BEHAVIOUR INTERACTIVE INC.",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMGVHnnbwqmddv7S+OLbhznkasZ7QRYROPOGgJCwDMB1xnZCkyO8GeAHVj/BBqE6FA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGynB5knp8bu9QXk4Nq3gprzolxxyP+23Wr+HBRQMEzKkOsWuEzjhM4UXK/tEbyE4g==",
                             PhoneNumber = "136579373378",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE",
-                            SecurityStamp = "b8ed9cf4-1fcf-4b16-aacf-0ff4e0618658",
+                            SecurityStamp = "2ce09ad9-91ea-4126-8c2a-3cdde0e7ca2b",
                             TwoFactorEnabled = false,
                             UserName = "Behaviour Interactive Inc."
                         },
@@ -763,7 +765,7 @@ namespace GamaGameHub.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Metodii Kusev 32",
                             City = "Stara Zagora",
-                            ConcurrencyStamp = "71b98555-ff1f-4b3b-8d27-531eccfd6b92",
+                            ConcurrencyStamp = "f7b95108-161a-48dc-a5e7-6be77f09d5f5",
                             Country = "Bulgaria",
                             Email = "gergana@gmail.com",
                             EmailConfirmed = false,
@@ -771,11 +773,11 @@ namespace GamaGameHub.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "GERGANA@GMAIL.COM",
                             NormalizedUserName = "GERGANA",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIfv4QXP/RpHgxvZVNA5KDW/hq9hAwSL31+P7WLmgn1OaDDzvsgD+f/7em8TiwGJUg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKetZsIqNl8tmcHjwx7saP9aTTV9Si3T4vUnhNo5qkyR9bX99/kWnvLcoYfHzwQtTw==",
                             PhoneNumber = "0986999728",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE",
-                            SecurityStamp = "543870af-679c-4dc3-a6d9-82a4bba0c0a9",
+                            SecurityStamp = "29be208a-63b1-4f54-b8c6-f8c500e43f7e",
                             TwoFactorEnabled = false,
                             UserName = "gergana"
                         },
@@ -785,7 +787,7 @@ namespace GamaGameHub.Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "Vasil Levski 8",
                             City = "Varna",
-                            ConcurrencyStamp = "8f636127-0ae8-4699-8ea5-bef59cee350d",
+                            ConcurrencyStamp = "28e7ba7e-2581-4f82-a2bb-7868cfd38a36",
                             Country = "Bulgaria",
                             Email = "stoyan@gmail.com",
                             EmailConfirmed = false,
@@ -793,11 +795,11 @@ namespace GamaGameHub.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "STOYAN@GMAIL.COM",
                             NormalizedUserName = "STOYAN",
-                            PasswordHash = "AQAAAAEAACcQAAAAED0+CxRQ7m75TXpkTIDxaGw+7IEQUyVjxycHAtKWKdKfNj/2Q3G7fxy6qkNdLI/nUg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBjbIULm6tPOWmfHxZmzTqt4lTOenWjBabpYm0vb2gkVUexSrQtILeSTZvcH6ia5TA==",
                             PhoneNumber = "0898508050",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE",
-                            SecurityStamp = "16aa6199-96d9-4877-b9f1-e46b0cab8cab",
+                            SecurityStamp = "f7e9070d-08fb-4004-99a1-2114a52db2e5",
                             TwoFactorEnabled = false,
                             UserName = "stoyan"
                         });
@@ -848,21 +850,21 @@ namespace GamaGameHub.Infrastructure.Migrations
                         new
                         {
                             Id = "3023896d-3caf-4d3a-9812-36f654921534",
-                            ConcurrencyStamp = "cd147a79-c621-4b81-9d8b-65a29e6e96da",
+                            ConcurrencyStamp = "93457054-4fd1-4d1f-b540-b991200e0a48",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "37c6416c-0f8e-4820-92c6-ebd52c680c8f",
-                            ConcurrencyStamp = "dc90c38b-79fd-4ff7-bd91-fdb8d95c1f21",
+                            ConcurrencyStamp = "01a5c556-dccd-4610-a0e8-bed49b3eb967",
                             Name = "Client",
                             NormalizedName = "CLIENT"
                         },
                         new
                         {
                             Id = "82254c24-56b0-4a91-9d25-9c43e89f9e92",
-                            ConcurrencyStamp = "11aaae3d-b5c3-4e24-b470-fd264f0b52cb",
+                            ConcurrencyStamp = "feebe9a3-a80d-42a1-aee0-dacb07374a37",
                             Name = "GameCreator",
                             NormalizedName = "GAMECREATOR"
                         });

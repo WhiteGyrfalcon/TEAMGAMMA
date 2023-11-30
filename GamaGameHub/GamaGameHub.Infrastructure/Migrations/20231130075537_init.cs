@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GamaGameHub.Infrastructure.Migrations
 {
-    public partial class more : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -301,13 +301,13 @@ namespace GamaGameHub.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Favourites_Games_GameId",
                         column: x => x.GameId,
                         principalTable: "Games",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -325,13 +325,13 @@ namespace GamaGameHub.Infrastructure.Migrations
                         column: x => x.GamesId,
                         principalTable: "Games",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_GameGenre_Genre_GenresId",
                         column: x => x.GenresId,
                         principalTable: "Genre",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -358,13 +358,13 @@ namespace GamaGameHub.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Review_Games_GameId",
                         column: x => x.GameId,
                         principalTable: "Games",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -414,13 +414,13 @@ namespace GamaGameHub.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PostComments_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -443,13 +443,13 @@ namespace GamaGameHub.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ReviewComments_Review_ReviewId",
                         column: x => x.ReviewId,
                         principalTable: "Review",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -457,9 +457,9 @@ namespace GamaGameHub.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3023896d-3caf-4d3a-9812-36f654921534", "cd147a79-c621-4b81-9d8b-65a29e6e96da", "Administrator", "ADMINISTRATOR" },
-                    { "37c6416c-0f8e-4820-92c6-ebd52c680c8f", "dc90c38b-79fd-4ff7-bd91-fdb8d95c1f21", "Client", "CLIENT" },
-                    { "82254c24-56b0-4a91-9d25-9c43e89f9e92", "11aaae3d-b5c3-4e24-b470-fd264f0b52cb", "GameCreator", "GAMECREATOR" }
+                    { "3023896d-3caf-4d3a-9812-36f654921534", "93457054-4fd1-4d1f-b540-b991200e0a48", "Administrator", "ADMINISTRATOR" },
+                    { "37c6416c-0f8e-4820-92c6-ebd52c680c8f", "01a5c556-dccd-4610-a0e8-bed49b3eb967", "Client", "CLIENT" },
+                    { "82254c24-56b0-4a91-9d25-9c43e89f9e92", "feebe9a3-a80d-42a1-aee0-dacb07374a37", "GameCreator", "GAMECREATOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -467,12 +467,12 @@ namespace GamaGameHub.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Address", "City", "ConcurrencyStamp", "Country", "Email", "EmailConfirmed", "IsActive", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "2c88b9f1-b872-4450-a600-c36f736aeea9", 0, "Aleksandar Batenberg 28", "Karnobat", "069aa833-3905-41a7-b4f4-0d808a8a80c9", "Bulgaria", "petar@gmail.com", false, true, false, null, "PETAR@GMAIL.COM", "PETAR", "AQAAAAEAACcQAAAAEEHGU8Umf6c6HQy2zDcYZjXkDMaTLUtksxHskCDlQFapUQfLG72S8Rl5saMeNgnkzw==", "0893052673", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "0cd197e2-1a50-4a03-96e6-675104d66e3d", false, "petar" },
-                    { "3d9a8eaf-5b3e-4b69-a101-74ff3787b7df", 0, "Redwood Shores Parkway 209", "Redwood City, Northern California", "61697a1d-8ceb-489c-b6df-80cc946e5a5c", "USA", "electronicarts@gmail.com", false, true, false, null, "ELECTRONICARTS@GMAIL.COM", "ELECTRONIC ARTS", "AQAAAAEAACcQAAAAEJ7IhlD4ThmfJVtI+4LvKT+TkDvoE3Z+5D1jCVrYoDAvKT6EfpWiiFtExCLq1TDbHQ==", "16059719337", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "9d484e6a-c3b3-4e34-83bf-e2684b5b8082", false, "Electronic Arts" },
-                    { "40b15c7b-dc76-4280-b025-4816f74e5f48", 0, "Metodii Kusev 32", "Stara Zagora", "71b98555-ff1f-4b3b-8d27-531eccfd6b92", "Bulgaria", "gergana@gmail.com", false, true, false, null, "GERGANA@GMAIL.COM", "GERGANA", "AQAAAAEAACcQAAAAEIfv4QXP/RpHgxvZVNA5KDW/hq9hAwSL31+P7WLmgn1OaDDzvsgD+f/7em8TiwGJUg==", "0986999728", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "543870af-679c-4dc3-a6d9-82a4bba0c0a9", false, "gergana" },
-                    { "7113b6b6-07d4-4d57-8173-2a9d053834d4", 0, "Hristo Botev 15", "Kazanlak", "0886e400-e988-4c77-9113-5ecb301eb4b2", "Bulgaria", "silvia@gmail.com", false, true, false, null, "SILVIA@GMAIL.COM", "SILVIA", "AQAAAAEAACcQAAAAEAkPiSB/TnClOsLo9r1lOKDn50HLarJsr5WQu3die2ZR9J9JuHCApymxuD9OXXdGng==", "0888752419", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "35b53140-1918-4453-85e4-0c15c7468c26", false, "silvia" },
-                    { "7cd7370d-565d-4f77-9fd5-60d27985bbf1", 0, "Main Street 22", "Toronto", "8fe73332-f884-4f24-8009-3dba79839e84", "Canada", "bhvrinteractive@gmail.com", false, true, false, null, "BHVRINTERACTIVE@GMAIL.COM", "BEHAVIOUR INTERACTIVE INC.", "AQAAAAEAACcQAAAAEMGVHnnbwqmddv7S+OLbhznkasZ7QRYROPOGgJCwDMB1xnZCkyO8GeAHVj/BBqE6FA==", "136579373378", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "b8ed9cf4-1fcf-4b16-aacf-0ff4e0618658", false, "Behaviour Interactive Inc." },
-                    { "da389127-2cb6-4a2c-9afe-e609253e9391", 0, "Vasil Levski 8", "Varna", "8f636127-0ae8-4699-8ea5-bef59cee350d", "Bulgaria", "stoyan@gmail.com", false, true, false, null, "STOYAN@GMAIL.COM", "STOYAN", "AQAAAAEAACcQAAAAED0+CxRQ7m75TXpkTIDxaGw+7IEQUyVjxycHAtKWKdKfNj/2Q3G7fxy6qkNdLI/nUg==", "0898508050", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "16aa6199-96d9-4877-b9f1-e46b0cab8cab", false, "stoyan" }
+                    { "2c88b9f1-b872-4450-a600-c36f736aeea9", 0, "Aleksandar Batenberg 28", "Karnobat", "23e3adc3-93f9-4abf-8128-c1c9607b69ee", "Bulgaria", "petar@gmail.com", false, true, false, null, "PETAR@GMAIL.COM", "PETAR", "AQAAAAEAACcQAAAAENjgInECKzg55in0jmueiEHPKzvpp+5mJs9mVR5Ev7Wqf4fYYVLRQCrwQPlY1uJX7Q==", "0893052673", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "c7ce00d9-55f9-4f1d-b08d-06c8ad570337", false, "petar" },
+                    { "3d9a8eaf-5b3e-4b69-a101-74ff3787b7df", 0, "Redwood Shores Parkway 209", "Redwood City, Northern California", "2d7b4413-194e-4880-a79d-57b958c59e2b", "USA", "electronicarts@gmail.com", false, true, false, null, "ELECTRONICARTS@GMAIL.COM", "ELECTRONIC ARTS", "AQAAAAEAACcQAAAAEFG4fb7+omxZzP26McgDQ7pa2KZuOMb/8fV50hn9RmVblV4jfam+lfuNruBZMe/mMA==", "16059719337", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "0556eb5a-cbcf-4e5b-b4c9-104d68918f02", false, "Electronic Arts" },
+                    { "40b15c7b-dc76-4280-b025-4816f74e5f48", 0, "Metodii Kusev 32", "Stara Zagora", "f7b95108-161a-48dc-a5e7-6be77f09d5f5", "Bulgaria", "gergana@gmail.com", false, true, false, null, "GERGANA@GMAIL.COM", "GERGANA", "AQAAAAEAACcQAAAAEKetZsIqNl8tmcHjwx7saP9aTTV9Si3T4vUnhNo5qkyR9bX99/kWnvLcoYfHzwQtTw==", "0986999728", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "29be208a-63b1-4f54-b8c6-f8c500e43f7e", false, "gergana" },
+                    { "7113b6b6-07d4-4d57-8173-2a9d053834d4", 0, "Hristo Botev 15", "Kazanlak", "31c39ef9-c419-4852-a96a-81423511db29", "Bulgaria", "silvia@gmail.com", false, true, false, null, "SILVIA@GMAIL.COM", "SILVIA", "AQAAAAEAACcQAAAAEPd69TvJOS0eK573OhC/ASdvhwGFc2/rM+moKg4jBw0gmJ9DaeyXdxFqQtnMhQnb2A==", "0888752419", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "8dad2e61-332f-4f22-ab1a-d6649321ea11", false, "silvia" },
+                    { "7cd7370d-565d-4f77-9fd5-60d27985bbf1", 0, "Main Street 22", "Toronto", "6e79ede9-8948-4ba0-989d-5bfc6d91d329", "Canada", "bhvrinteractive@gmail.com", false, true, false, null, "BHVRINTERACTIVE@GMAIL.COM", "BEHAVIOUR INTERACTIVE INC.", "AQAAAAEAACcQAAAAEGynB5knp8bu9QXk4Nq3gprzolxxyP+23Wr+HBRQMEzKkOsWuEzjhM4UXK/tEbyE4g==", "136579373378", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "2ce09ad9-91ea-4126-8c2a-3cdde0e7ca2b", false, "Behaviour Interactive Inc." },
+                    { "da389127-2cb6-4a2c-9afe-e609253e9391", 0, "Vasil Levski 8", "Varna", "28e7ba7e-2581-4f82-a2bb-7868cfd38a36", "Bulgaria", "stoyan@gmail.com", false, true, false, null, "STOYAN@GMAIL.COM", "STOYAN", "AQAAAAEAACcQAAAAEBjbIULm6tPOWmfHxZmzTqt4lTOenWjBabpYm0vb2gkVUexSrQtILeSTZvcH6ia5TA==", "0898508050", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "f7e9070d-08fb-4004-99a1-2114a52db2e5", false, "stoyan" }
                 });
 
             migrationBuilder.InsertData(
