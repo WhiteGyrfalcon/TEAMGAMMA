@@ -31,7 +31,8 @@ namespace GamaGameHub.Infrastructure.Data.Configuration
                 PhoneNumber = "0893052673",
                 City = "Karnobat",
                 Address = "Aleksandar Batenberg 28",
-                Country = "Bulgaria"
+                Country = "Bulgaria",
+                ProfilePictureUrl= "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE"
             };
 
             user.PasswordHash =
@@ -49,7 +50,8 @@ namespace GamaGameHub.Infrastructure.Data.Configuration
                 PhoneNumber = "0888752419",
                 City = "Kazanlak",
                 Address = "Hristo Botev 15",
-                Country = "Bulgaria"
+                Country = "Bulgaria",
+                ProfilePictureUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE"
             };
 
             user.PasswordHash =
@@ -60,14 +62,15 @@ namespace GamaGameHub.Infrastructure.Data.Configuration
             user = new User()
             {
                 Id = "3d9a8eaf-5b3e-4b69-a101-74ff3787b7df",
-                UserName = "ivan",
-                NormalizedUserName = "IVAN",
-                Email = "ivan@gmail.com",
-                NormalizedEmail = "IVAN@GMAIL.COM",
-                PhoneNumber = "0885620739",
-                City = "Sofia",
-                Address = "San Stefano 9",
-                Country = "Bulgaria"
+                UserName = "Electronic Arts",
+                NormalizedUserName = "ELECTRONIC ARTS",
+                Email = "electronicarts@gmail.com",
+                NormalizedEmail = "ELECTRONICARTS@GMAIL.COM",
+                PhoneNumber = "16059719337",
+                City = "Redwood City, Northern California",
+                Address = "Redwood Shores Parkway 209",
+                Country = "USA",
+                ProfilePictureUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE"
             };
 
             user.PasswordHash =
@@ -78,14 +81,15 @@ namespace GamaGameHub.Infrastructure.Data.Configuration
             user = new User()
             {
                 Id = "7cd7370d-565d-4f77-9fd5-60d27985bbf1",
-                UserName = "plamena",
-                NormalizedUserName = "PLAMENA",
-                Email = "plamena@gmail.com",
-                NormalizedEmail = "PLAMENA@GMAIL.COM",
-                PhoneNumber = "0895776073",
-                City = "Veliko Tarnovo",
-                Address = "Hadji Dimitar 22",
-                Country = "Bulgaria"
+                UserName = "Behaviour Interactive Inc.",
+                NormalizedUserName = "BEHAVIOUR INTERACTIVE INC.",
+                Email = "bhvrinteractive@gmail.com",
+                NormalizedEmail = "BHVRINTERACTIVE@GMAIL.COM",
+                PhoneNumber = "136579373378",
+                City = "Toronto",
+                Address = "Main Street 22",
+                Country = "Canada",
+                ProfilePictureUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE"
             };
 
             user.PasswordHash =
@@ -103,7 +107,8 @@ namespace GamaGameHub.Infrastructure.Data.Configuration
                 PhoneNumber = "0986999728",
                 City = "Stara Zagora",
                 Address = "Metodii Kusev 32",
-                Country = "Bulgaria"
+                Country = "Bulgaria",
+                ProfilePictureUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE"
             };
 
             user.PasswordHash =
@@ -121,7 +126,8 @@ namespace GamaGameHub.Infrastructure.Data.Configuration
                 PhoneNumber = "0898508050",
                 City = "Varna",
                 Address = "Vasil Levski 8",
-                Country = "Bulgaria"
+                Country = "Bulgaria",
+                ProfilePictureUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE"
             };
 
             user.PasswordHash =

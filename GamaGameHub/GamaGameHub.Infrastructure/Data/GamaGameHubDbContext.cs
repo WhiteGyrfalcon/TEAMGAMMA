@@ -39,13 +39,15 @@ namespace GamaGameHub.Infrastructure.Data
                 .HasMaxLength(60)
                 .IsRequired();
 
-            builder.ApplyConfiguration(new GameCreatorConfiguration());
+            
             builder.ApplyConfiguration(new UserConfiguration());
-            builder.ApplyConfiguration(new RoleConfiguration());
-            builder.ApplyConfiguration(new UsersRolesConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new GenreConfiguration());
+            builder.ApplyConfiguration(new GameCreatorConfiguration());
             builder.ApplyConfiguration(new GameConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new UsersRolesConfiguration());
+            
 
             base.OnModelCreating(builder);
         }
