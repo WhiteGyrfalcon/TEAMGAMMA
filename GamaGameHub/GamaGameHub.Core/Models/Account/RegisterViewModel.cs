@@ -30,19 +30,19 @@ namespace GamaGameHub.Core.Models.Account
         public string PasswordRepeat { get; set; } = null!;
 
         [Phone]
-        public string PhoneNumber { get; set; } = null!;
+        public string? PhoneNumber { get; set; }
 
         [StringLength(AddressMaxLength, MinimumLength = AddressMinLength)]
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
         [StringLength(CityMaxLength, MinimumLength = CityMinLength)]
-        public string City { get; set; }
+        public string? City { get; set; }
 
         [StringLength(CountryMaxLength, MinimumLength = CountryMinLength)]
-        public string Country { get; set; }
+        public string? Country { get; set; }
 
         [StringLength(AdditionalInformationMaxLength, MinimumLength = AdditionalInformationMinLength)]
-        public string AdditionalInformation { get; set; }
+        public string? AdditionalInformation { get; set; }
 
         public IFormFile? ProfilePicture { get; set; }
     }

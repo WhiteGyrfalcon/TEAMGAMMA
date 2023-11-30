@@ -39,6 +39,7 @@ namespace GamaGameHub.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            
             if (await userService.UserByEmailExists(model.Email))
             {
                 ModelState.AddModelError(nameof(model.Email), "There is already a registration with this email!");
@@ -75,7 +76,7 @@ namespace GamaGameHub.Controllers
 
             foreach (var item in result.Errors)
             {
-                ModelState.AddModelError("", item.Description);
+                ModelState.AddModelError(item.Code, item.Description);//gospodina pipa ne bqh az ako gramne
             }
 
             return View(model);
