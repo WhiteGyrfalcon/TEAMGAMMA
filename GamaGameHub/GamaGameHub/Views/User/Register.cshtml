@@ -1,6 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model RegisterViewModel
+
 @{
     ViewData["Title"] = "Register";
 }
@@ -21,60 +20,74 @@
             </div>
         </div>
 
-        <form>
+        <form method="post" enctype="multipart/form-data">
             <div>
                 <label for="sampleInput">Your email<span class="mandatory">*</span></label>
-                <input class="h-full-width" type="email" placeholder="test@mailbox.com">
+                <input asp-for="Email" class="h-full-width" type="email" placeholder="test@mailbox.com" required>
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div>
                 <label for="sampleInput">Username<span class="mandatory">*</span></label>
-                <input class="h-full-width" type="text" placeholder="IvanIvanov">
+                <input asp-for="Username" class="h-full-width" type="text" placeholder="Ivan Ivanov" required>
+                <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div>
                 <label for="sampleInput">Password<span class="mandatory">*</span></label>
-                <input class="h-full-width" type="password" placeholder="123asd123">
+                <input asp-for="Password" class="h-full-width" type="password" placeholder="123asd123" required>
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div>
                 <label for="sampleInput">Repeat password<span class="mandatory">*</span></label>
-                <input class="h-full-width" type="password" placeholder="123asd123">
+                <input asp-for="PasswordRepeat" class="h-full-width" type="password" placeholder="123asd123" required>
+                <span asp-validation-for="PasswordRepeat" class="text-danger"></span>
             </div>
             <div>
-                <label for="sampleInput">Your Phone</label>
-                <input class="h-full-width" type="text" placeholder="0823747232">
+                <label for="sampleInput">Your Phone<span class="mandatory">*</span></label>
+                <input asp-for="PhoneNumber" class="h-full-width" type="text" placeholder="0823747232" required>
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div>
                 <label for="sampleInput">Your Address</label>
-                <input class="h-full-width" type="text" placeholder="ul. 23 Pehoten Shipchenski Polk">
+                <input asp-for="Address" class="h-full-width" type="text" placeholder="ul. 23 Pehoten Shipchenski Polk">
+                <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div>
                 <label for="sampleInput">Your City</label>
-                <input class="h-full-width" type="text" placeholder="Kazanlak">
+                <input asp-for="City" class="h-full-width" type="text" placeholder="Kazanlak">
+                <span asp-validation-for="City" class="text-danger"></span>
             </div>
             <div>
                 <label for="sampleInput">Your Country</label>
-                <input class="h-full-width" type="text" placeholder="Bulgaria">
+                <input asp-for="Country" class="h-full-width" type="text" placeholder="Bulgaria">
+                <span asp-validation-for="Country" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <label class="profilePictureLabel">Profile Picture</label>
                 <label class="btn h-full-width" for="uploadProfilePicture">Upload Profile Picture</label>
-                <input id="uploadProfilePicture" class="upload-photo" name="Profile Picture" for="ProfilePictureUrl" accept="image/gif, image/jpeg, image/png" type="file">
-                <span for="ProfilePictureUrl" class="text-danger"></span>
+                <input asp-for="ProfilePictureUrl" id="uploadProfilePicture" class="upload-photo" name="Profile Picture" for="ProfilePictureUrl" accept="image/gif, image/jpeg, image/png">
+                <span asp-validation-for="ProfilePictureUrl" class="text-danger"></span>
             </div>
             <div class="mb-3">
                 <img alt="Upload an image" accept="image/gif, image/jpeg, image/png" style="display:none;">
             </div>
             <div style="display:none;" id="yearOfCreating">
                 <label for="sampleInput">Year of creating</label>
-                <input class="h-full-width" type="text" placeholder="2005">
+                <input asp-for="YearOfCreating" class="h-full-width" type="text" placeholder="2005">
+                <span asp-validation-for="YearOfCreating" class="text-danger"></span>
             </div>
             <div style="display:none;" id="additionalInformation">
                 <label for="sampleInput">Additional Information</label>
-                <input class="h-full-width" type="text" placeholder="Lorem ipsum additional information...">
+                <input asp-for="AdditionalInformation" class="h-full-width" type="text" placeholder="Lorem ipsum additional information...">
+                <span asp-validation-for="AdditionalInformation" class="text-danger"></span>
             </div>
 
-            <input class="btn--primary h-full-width" type="submit" value="Submit">
+            <input asp-controller="Account" asp-action="Register" class="btn--primary h-full-width" type="submit" value="Submit">
         </form>
 
     </div>
 
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

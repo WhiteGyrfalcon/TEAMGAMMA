@@ -15,24 +15,21 @@ namespace GamaGameHub.Infrastructure.Data.Entities
     {
         public User()
         {
-            this.IsActive= true;
+            this.IsActive = true;
         }
 
-        [Required]
         [MaxLength(CityMaxLength)]
-        public string City { get; set; }
+        public string? City { get; set; }
 
-        [Required]
         [MaxLength(AddressMaxLength)]
-        public string Address { get; set; }
-
-        [Required]
+        public string? Address { get; set; }
+        
         [MaxLength(CountryMaxLength)]
-        public string Country { get; set; }
+        public string? Country { get; set; }
 
         public bool IsActive { get; set; }
 
-        public  string ProfilePictureUrl { get; set; }
+        public string? ProfilePictureUrl { get; set; }
 
         public ICollection<Favourite> Favourites { get; set; } = new HashSet<Favourite>();
     }

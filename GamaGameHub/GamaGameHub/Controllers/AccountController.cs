@@ -7,23 +7,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GamaGameHub.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly IImageService imageService;
         private readonly IUserService userService;
+        private readonly IGameCreatorService gameCreatorService;
 
         public AccountController(
             UserManager<User> _userManager,
             SignInManager<User> _signInManager,
             IImageService _imageService,
-            IUserService _userService)
+            IUserService _userService,
+            IGameCreatorService _gameCreatorService)
         {
             userManager = _userManager;
             signInManager = _signInManager;
             imageService = _imageService;
             userService = _userService;
+            gameCreatorService = _gameCreatorService;
         }
 
         [HttpGet]
@@ -61,10 +65,19 @@ namespace GamaGameHub.Controllers
             };
 
             var result = await userManager.CreateAsync(user, model.Password);
-            
-            await userManager.AddToRoleAsync(user, "Client");
 
-            user.ProfilePictureUrl = await this.imageService.UploadImage(model.ProfilePicture, "images", user);
+            if (model.AdditionalInformation != null || model.YearOfCreating != 0)
+            {
+                await gameCreatorService.Create(user.Id, model.AdditionalInformation, model.YearOfCreating);
+                await userManager.AddToRoleAsync(user, "GameCreator");
+            }
+            else
+            {
+                await userManager.AddToRoleAsync(user, "Client");
+            }
+
+
+            user.ProfilePictureUrl = await this.imageService.UploadImage(model.ProfilePictureUrl, "images", user);
             await userManager.UpdateAsync(user);
 
             if (result.Succeeded)
