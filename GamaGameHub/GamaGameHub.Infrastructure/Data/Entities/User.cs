@@ -32,6 +32,8 @@ namespace GamaGameHub.Infrastructure.Data.Entities
 
         public bool IsActive { get; set; }
 
+        public  string ProfilePictureUrl { get; set; }
+
         public ICollection<Favourite> Favourites { get; set; } = new HashSet<Favourite>();
     }
 }

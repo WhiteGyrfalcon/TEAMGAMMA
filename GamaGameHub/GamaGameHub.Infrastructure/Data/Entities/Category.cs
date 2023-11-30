@@ -23,9 +23,6 @@ namespace GamaGameHub.Infrastructure.Data.Entities
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
-        [Required]
-        [ForeignKey(nameof(Game))]
-        public int GameId { get; set; }
-        public Game Game { get; set; }
+        public ICollection<Game> Games { get; set; } = new HashSet<Game>();
     }
 }
