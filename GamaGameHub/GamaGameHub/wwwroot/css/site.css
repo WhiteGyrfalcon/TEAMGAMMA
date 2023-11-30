@@ -30,6 +30,7 @@ body {
     margin-top: 10px;
 }
 
+
 .register-heading-container{
     display: flex;
     flex-direction: row;
@@ -4290,12 +4291,12 @@ input[type="button"] {
     }
 
     .s-header__logo img {
-        width: 5.8rem;
-        height: 5.8rem;
+        width: 15rem;
+        height: 15rem;
         margin: 0;
         vertical-align: bottom;
     }
-
+    
 /* -------------------------------------------------------------------
  * ## main navigation
  * ------------------------------------------------------------------- */
