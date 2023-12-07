@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using static GamaGameHub.Infrastructure.Data.Constants.EntityConstraints.GameCreatorConstraints;
+
 namespace GamaGameHub.Infrastructure.Data.Entities
 {
     public class GameCreator
@@ -27,6 +29,9 @@ namespace GamaGameHub.Infrastructure.Data.Entities
 
         [Required]
         public int YearOfCreating { get; set; }
+
+        [MaxLength(AdditionalInformationMaxLength)]
+        public string AdditionalInformation { get; set; }
 
         public bool IsActive { get; set; }
 

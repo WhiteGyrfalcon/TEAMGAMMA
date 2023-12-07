@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GamaGameHub.Infrastructure.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,6 +32,7 @@ namespace GamaGameHub.Infrastructure.Migrations
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Country = table.Column<string>(type: "nvarchar(56)", maxLength: 56, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    ProfilePictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
@@ -50,6 +51,34 @@ namespace GamaGameHub.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Genre",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genre", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -166,6 +195,7 @@ namespace GamaGameHub.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     YearOfCreating = table.Column<int>(type: "int", nullable: false),
+                    AdditionalInformation = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -231,21 +261,24 @@ namespace GamaGameHub.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "CategoryGame",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    GameId = table.Column<int>(type: "int", nullable: false)
+                    CategoriesId = table.Column<int>(type: "int", nullable: false),
+                    GamesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_CategoryGame", x => new { x.CategoriesId, x.GamesId });
                     table.ForeignKey(
-                        name: "FK_Categories_Games_GameId",
-                        column: x => x.GameId,
+                        name: "FK_CategoryGame_Categories_CategoriesId",
+                        column: x => x.CategoriesId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CategoryGame_Games_GamesId",
+                        column: x => x.GamesId,
                         principalTable: "Games",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -278,45 +311,27 @@ namespace GamaGameHub.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Genre",
+                name: "GameGenre",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    GameId = table.Column<int>(type: "int", nullable: false)
+                    GamesId = table.Column<int>(type: "int", nullable: false),
+                    GenresId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genre", x => x.Id);
+                    table.PrimaryKey("PK_GameGenre", x => new { x.GamesId, x.GenresId });
                     table.ForeignKey(
-                        name: "FK_Genre_Games_GameId",
-                        column: x => x.GameId,
+                        name: "FK_GameGenre_Games_GamesId",
+                        column: x => x.GamesId,
                         principalTable: "Games",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Images",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UrlPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    GameId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Images", x => x.Id);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Images_Games_GameId",
-                        column: x => x.GameId,
-                        principalTable: "Games",
+                        name: "FK_GameGenre_Genre_GenresId",
+                        column: x => x.GenresId,
+                        principalTable: "Genre",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -343,13 +358,40 @@ namespace GamaGameHub.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Review_Games_GameId",
                         column: x => x.GameId,
                         principalTable: "Games",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UrlPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    GameId = table.Column<int>(type: "int", nullable: false),
+                    PostId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Images_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Images_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -372,7 +414,7 @@ namespace GamaGameHub.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PostComments_Posts_PostId",
                         column: x => x.PostId,
@@ -401,13 +443,101 @@ namespace GamaGameHub.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ReviewComments_Review_ReviewId",
                         column: x => x.ReviewId,
                         principalTable: "Review",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "3023896d-3caf-4d3a-9812-36f654921534", "93457054-4fd1-4d1f-b540-b991200e0a48", "Administrator", "ADMINISTRATOR" },
+                    { "37c6416c-0f8e-4820-92c6-ebd52c680c8f", "01a5c556-dccd-4610-a0e8-bed49b3eb967", "Client", "CLIENT" },
+                    { "82254c24-56b0-4a91-9d25-9c43e89f9e92", "feebe9a3-a80d-42a1-aee0-dacb07374a37", "GameCreator", "GAMECREATOR" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Address", "City", "ConcurrencyStamp", "Country", "Email", "EmailConfirmed", "IsActive", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "2c88b9f1-b872-4450-a600-c36f736aeea9", 0, "Aleksandar Batenberg 28", "Karnobat", "23e3adc3-93f9-4abf-8128-c1c9607b69ee", "Bulgaria", "petar@gmail.com", false, true, false, null, "PETAR@GMAIL.COM", "PETAR", "AQAAAAEAACcQAAAAENjgInECKzg55in0jmueiEHPKzvpp+5mJs9mVR5Ev7Wqf4fYYVLRQCrwQPlY1uJX7Q==", "0893052673", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "c7ce00d9-55f9-4f1d-b08d-06c8ad570337", false, "petar" },
+                    { "3d9a8eaf-5b3e-4b69-a101-74ff3787b7df", 0, "Redwood Shores Parkway 209", "Redwood City, Northern California", "2d7b4413-194e-4880-a79d-57b958c59e2b", "USA", "electronicarts@gmail.com", false, true, false, null, "ELECTRONICARTS@GMAIL.COM", "ELECTRONIC ARTS", "AQAAAAEAACcQAAAAEFG4fb7+omxZzP26McgDQ7pa2KZuOMb/8fV50hn9RmVblV4jfam+lfuNruBZMe/mMA==", "16059719337", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "0556eb5a-cbcf-4e5b-b4c9-104d68918f02", false, "Electronic Arts" },
+                    { "40b15c7b-dc76-4280-b025-4816f74e5f48", 0, "Metodii Kusev 32", "Stara Zagora", "f7b95108-161a-48dc-a5e7-6be77f09d5f5", "Bulgaria", "gergana@gmail.com", false, true, false, null, "GERGANA@GMAIL.COM", "GERGANA", "AQAAAAEAACcQAAAAEKetZsIqNl8tmcHjwx7saP9aTTV9Si3T4vUnhNo5qkyR9bX99/kWnvLcoYfHzwQtTw==", "0986999728", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "29be208a-63b1-4f54-b8c6-f8c500e43f7e", false, "gergana" },
+                    { "7113b6b6-07d4-4d57-8173-2a9d053834d4", 0, "Hristo Botev 15", "Kazanlak", "31c39ef9-c419-4852-a96a-81423511db29", "Bulgaria", "silvia@gmail.com", false, true, false, null, "SILVIA@GMAIL.COM", "SILVIA", "AQAAAAEAACcQAAAAEPd69TvJOS0eK573OhC/ASdvhwGFc2/rM+moKg4jBw0gmJ9DaeyXdxFqQtnMhQnb2A==", "0888752419", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "8dad2e61-332f-4f22-ab1a-d6649321ea11", false, "silvia" },
+                    { "7cd7370d-565d-4f77-9fd5-60d27985bbf1", 0, "Main Street 22", "Toronto", "6e79ede9-8948-4ba0-989d-5bfc6d91d329", "Canada", "bhvrinteractive@gmail.com", false, true, false, null, "BHVRINTERACTIVE@GMAIL.COM", "BEHAVIOUR INTERACTIVE INC.", "AQAAAAEAACcQAAAAEGynB5knp8bu9QXk4Nq3gprzolxxyP+23Wr+HBRQMEzKkOsWuEzjhM4UXK/tEbyE4g==", "136579373378", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "2ce09ad9-91ea-4126-8c2a-3cdde0e7ca2b", false, "Behaviour Interactive Inc." },
+                    { "da389127-2cb6-4a2c-9afe-e609253e9391", 0, "Vasil Levski 8", "Varna", "28e7ba7e-2581-4f82-a2bb-7868cfd38a36", "Bulgaria", "stoyan@gmail.com", false, true, false, null, "STOYAN@GMAIL.COM", "STOYAN", "AQAAAAEAACcQAAAAEBjbIULm6tPOWmfHxZmzTqt4lTOenWjBabpYm0vb2gkVUexSrQtILeSTZvcH6ia5TA==", "0898508050", false, "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freeiconspng.com%2Fimages%2Fprofile-icon-png&psig=AOvVaw3wTqNvIRQgdxukevliNioM&ust=1701414266054000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIi0rJmU64IDFQAAAAAdAAAAABAE", "f7e9070d-08fb-4004-99a1-2114a52db2e5", false, "stoyan" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Shows the first 20 games, that have most likes.", "Top 20 most favourited games" },
+                    { 2, "Shows 5 games, which have the most reviews.", "Top 5 most reviewed games" },
+                    { 3, "Shows the first 25 adventure games, that have most likes.", "Top 25 adventure games" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Genre",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "An action game is a video game genre that emphasizes physical challenges, including hand–eye coordination and reaction time. The genre includes a large variety of sub-genres, such as fighting games, beat 'em ups, shooter games, and platform games.", "Action" },
+                    { 2, "An adventure game (rarely called a quest game) is a video game genre in which the player assumes the role of a protagonist in an interactive story, driven by exploration and/or puzzle-solving. Most adventure games are designed for a single player.", "Adventure" },
+                    { 3, "Sports games are a video game genre that simulates sports. They are usually based on real-world sports, but can also be fictional or exaggerated. These games usually let the player control one or more athletes during competition.", "Sports" },
+                    { 4, "Indie games stand for “independent video games.” At the highest level, they are games created by individuals or small teams who operate independently from major studios, both financially and creatively.", "Indie" },
+                    { 5, "A casual game is a video game targeted at a mass market audience, as opposed to a hardcore game, which is targeted at hobbyist gamers. Casual games may exhibit any type of gameplay and genre. They generally involve simpler rules, shorter sessions, and require less learned skill.", "Casual" },
+                    { 6, "Simulation games are a diverse super-category of video games, generally designed to closely simulate real world activities. A simulation game attempts to copy various activities from real life in the form of a game for various purposes such as training, analysis, prediction, or entertainment.", "Simulation" },
+                    { 7, "Role-playing video game is electronic game genre in which players advance through a story quest, and often many side quests, for which their character or party of characters gain experience that improves various attributes and abilities.", "RPG" },
+                    { 8, "A strategy game is a game in which the players' uncoerced, and often autonomous, decision-making skills have a high significance in determining the outcome. Almost all strategy games require internal decision tree-style thinking, and typically very high situational awareness.", "Strategy" },
+                    { 9, "A massively multiplayer online game (MMOG or MMO) is an online video game with a large number of players on the same server. MMOs usually feature a huge, persistent open world, although there are games that differ. These games can be found for most network-capable platforms.", "Massively Multiplayer" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { "37c6416c-0f8e-4820-92c6-ebd52c680c8f", "2c88b9f1-b872-4450-a600-c36f736aeea9" },
+                    { "82254c24-56b0-4a91-9d25-9c43e89f9e92", "3d9a8eaf-5b3e-4b69-a101-74ff3787b7df" },
+                    { "3023896d-3caf-4d3a-9812-36f654921534", "40b15c7b-dc76-4280-b025-4816f74e5f48" },
+                    { "3023896d-3caf-4d3a-9812-36f654921534", "7113b6b6-07d4-4d57-8173-2a9d053834d4" },
+                    { "82254c24-56b0-4a91-9d25-9c43e89f9e92", "7cd7370d-565d-4f77-9fd5-60d27985bbf1" },
+                    { "37c6416c-0f8e-4820-92c6-ebd52c680c8f", "da389127-2cb6-4a2c-9afe-e609253e9391" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "GameCreator",
+                columns: new[] { "Id", "AdditionalInformation", "IsActive", "UserId", "YearOfCreating" },
+                values: new object[,]
+                {
+                    { 1, "Driven by passion, we are a global leader in digital interactive entertainment. We develop and deliver games, content, and online services for Internet-connected consoles, mobile devices, and PCs.", true, "3d9a8eaf-5b3e-4b69-a101-74ff3787b7df", 1982 },
+                    { 2, "Innovation is our business. We strongly believe in trying new tech, methods, and ideas. It’s the result that counts, not how we get there.", true, "7cd7370d-565d-4f77-9fd5-60d27985bbf1", 1992 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Games",
+                columns: new[] { "Id", "AverageStars", "CreatedOn", "Description", "GameCreatorId", "IsActive", "Name", "Thumbnail" },
+                values: new object[,]
+                {
+                    { 1, 4, new DateTime(2020, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Apex Legends is the award-winning, free-to-play Hero Shooter from Respawn Entertainment.", 1, true, "Apex Legends™", "https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_download_software_1/2x1_NSwitchDS_ApexLegends_Season18_image1600w.jpg" },
+                    { 2, 3, new DateTime(2016, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "A multiplayer horror game where one player takes on the role of the savage Killer, and other four players play as Survivors, trying to escape.", 2, true, "Dead by Daylight", "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/05/dead_by_daylight_splash.jpg?q=50&fit=contain&w=1140&h=&dpr=1.5" },
+                    { 3, 5, new DateTime(2023, 9, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "The World's Game: the most true-to-football experience ever with HyperMotionV, PlayStyles optimized by Opta, and an enhanced Frostbite™ Engine.", 1, true, "EA SPORTS FC™ 24", "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000061749/bd653d83bdcc1613cfacae62845933633ce97fffc52e7e4070014eb41f9e75f7" },
+                    { 4, 2, new DateTime(2021, 11, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "First-person shooter, marks the return to the iconic warfare of the franchise. With a cutting-edge arsenal, you can engage in multiplayer battles.", 2, true, "Battlefield™ 2042", "https://cdn1.epicgames.com/offer/52f57f57120c440fad9bfa0e6c279317/EGS_Battlefield2042_DICE_S1_2560x1440-4fd7701f78a23c971e429093fc1f6341" },
+                    { 5, 2, new DateTime(2022, 10, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Call of Duty is a franchise of several multiplayer first-person shooter games published by Activision.", 1, true, "Call of Duty", "https://xxboxnews.blob.core.windows.net/prod/sites/2/2022/06/Call-of-Duty-Modern-Warfare-II_Reveal_X1_Wire_Hero_1920x1080-b5aea4e5ca6046ac478e.jpg" },
+                    { 6, 3, new DateTime(2020, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Open-world, action-adventure RPG set in the Night City, where you play as a cyberpunk mercenary wrapped up in a do-or-die fight for survival.", 2, true, "Cyberpunk 2077", "https://cdn1.epicgames.com/offer/77f2b98e2cef40c8a7437518bf420e47/EGS_Cyberpunk2077_CDPROJEKTRED_S1_03_2560x1440-359e77d3cd0a40aebf3bbc130d14c5c7" },
+                    { 7, 5, new DateTime(2021, 9, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Explore a thrilling, open-world MMO filled with danger where you are an adventurer shipwrecked on the supernatural island of Aeternum.", 1, true, "New World", "https://images.ctfassets.net/j95d1p8hsuun/29peK2k7Ic6FsPAVjHWs8W/06d3add40b23b20bbff215f6979267e8/NW_OPENGRAPH_1200x630.jpg" },
+                    { 8, 1, new DateTime(2021, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "In the game's story mode, players assume the role of player character Master Chief, as he wages a war against the Banished, an alien faction.", 2, true, "Halo Infinite", "https://i.ytimg.com/vi/HZtc5-syeAk/maxresdefault.jpg" },
+                    { 9, 4, new DateTime(2023, 10, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), "Play as a paranormal investigator in our hybrid between first person survival and psychological horror story game.", 1, true, "The Devourer: Hunted Souls", "https://cdn.akamai.steamstatic.com/steam/apps/2309400/capsule_616x353.jpg?t=1698626279" },
+                    { 10, 3, new DateTime(2023, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "Open-world high-fantasy strategy RPG that takes players on an epic journey where they can discover a dynamic world.", 2, true, "Dragonheir: Silent Gods", "https://i.ytimg.com/vi/OQFjIlOFJkg/maxresdefault.jpg" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -450,9 +580,9 @@ namespace GamaGameHub.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_GameId",
-                table: "Categories",
-                column: "GameId");
+                name: "IX_CategoryGame_GamesId",
+                table: "CategoryGame",
+                column: "GamesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Favourites_GameId",
@@ -470,19 +600,24 @@ namespace GamaGameHub.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GameGenre_GenresId",
+                table: "GameGenre",
+                column: "GenresId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Games_GameCreatorId",
                 table: "Games",
                 column: "GameCreatorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Genre_GameId",
-                table: "Genre",
-                column: "GameId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Images_GameId",
                 table: "Images",
                 column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_PostId",
+                table: "Images",
+                column: "PostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PostComments_PostId",
@@ -538,13 +673,13 @@ namespace GamaGameHub.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "CategoryGame");
 
             migrationBuilder.DropTable(
                 name: "Favourites");
 
             migrationBuilder.DropTable(
-                name: "Genre");
+                name: "GameGenre");
 
             migrationBuilder.DropTable(
                 name: "Images");
@@ -557,6 +692,12 @@ namespace GamaGameHub.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Genre");
 
             migrationBuilder.DropTable(
                 name: "Posts");
