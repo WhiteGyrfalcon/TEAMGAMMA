@@ -52,10 +52,10 @@ namespace GamaGameHub.Infrastructure.Data.Entities
         public ICollection<Review> Reviews { get; set; } = new HashSet<Review>();
 
         [Required]
-        public ICollection<Genre> Genres { get; set; } = new HashSet<Genre>();
+        public ICollection<GameGenre> GamesGenres { get; set; } = new HashSet<GameGenre>();
 
         [Required]
-        public ICollection<Category> Categories { get; set; }  = new HashSet<Category>();
+        public ICollection<GameCategory> GamesCategories { get; set; }  = new HashSet<GameCategory>();
 
         public ICollection<Favourite> Favourites { get; set; }  = new HashSet<Favourite>();
     }

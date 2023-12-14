@@ -23,7 +23,7 @@ namespace GamaGameHub.Infrastructure.Data.Entities
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
-        public ICollection<Game> Games { get; set; } = new HashSet<Game>();
+        public ICollection<GameGenre> GamesGenres { get; set; } = new HashSet<GameGenre>();
 
     }
 }

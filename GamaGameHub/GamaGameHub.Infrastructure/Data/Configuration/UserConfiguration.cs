@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GamaGameHub.Infrastructure.Data.Configuration
 {
-    internal class UserConfiguration : IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
