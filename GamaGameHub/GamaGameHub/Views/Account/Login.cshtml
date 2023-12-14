@@ -1,0 +1,33 @@
+﻿@model LoginViewModel
+
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+<div class="row flex-align-center">
+
+    <div class="column large-6 tab-12">
+
+        <h3 class="h-add-bottom">Login</h3>
+
+        <form method="post" enctype="multipart/form-data">
+            <div>
+                <label for="sampleInput">Email</label>
+                <input asp-for="Email" class="h-full-width" type="email" placeholder="test@mailbox.com" id="sampleInput">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            
+            <div>
+                <label for="sampleInput">Password</label>
+                <input asp-for="Password"  class="h-full-width" type="password" placeholder="123asd123" id="sampleInput">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <input asp-controller="Account" asp-action="Login" class="btn--primary h-full-width" type="submit" value="Submit">
+        </form>
+
+    </div>
+
+</div>
