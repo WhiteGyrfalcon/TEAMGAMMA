@@ -24,6 +24,9 @@ namespace GamaGameHub.Infrastructure.Data.Constants
 
             public const int EmailMaxLength = 50;
             public const int EmailMinLength = 10;
+
+            public const int UsernameMaxLength = 30;
+            public const int UsernameMinLength = 1;
         }
 
         public static class PostConstraints

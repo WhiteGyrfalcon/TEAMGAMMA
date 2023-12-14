@@ -42,7 +42,7 @@ namespace GamaGameHub.Infrastructure.Data.Entities
 
         public DateTime CreatedOn { get; set; }
 
-        public DateTime UpdatedOn { get; set;}
+        public DateTime? UpdatedOn { get; set;}
 
         public int Likes { get; set; }
 
