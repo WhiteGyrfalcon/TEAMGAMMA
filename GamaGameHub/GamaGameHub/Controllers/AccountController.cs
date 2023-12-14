@@ -7,27 +7,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GamaGameHub.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly IImageService imageService;
         private readonly IUserService userService;
-        private readonly IGameCreatorService gameCreatorService;
 
         public AccountController(
             UserManager<User> _userManager,
             SignInManager<User> _signInManager,
             IImageService _imageService,
-            IUserService _userService,
-            IGameCreatorService _gameCreatorService)
+            IUserService _userService)
         {
             userManager = _userManager;
             signInManager = _signInManager;
             imageService = _imageService;
             userService = _userService;
-            gameCreatorService = _gameCreatorService;
         }
 
         [HttpGet]
@@ -65,16 +61,8 @@ namespace GamaGameHub.Controllers
             };
 
             var result = await userManager.CreateAsync(user, model.Password);
-
-            if (model.AdditionalInformation != null || model.YearOfCreating != 0)
-            {
-                await gameCreatorService.Create(user.Id, model.AdditionalInformation, model.YearOfCreating);
-                await userManager.AddToRoleAsync(user, "GameCreator");
-            }
-            else
-            {
-                await userManager.AddToRoleAsync(user, "Client");
-            }
+            
+            await userManager.AddToRoleAsync(user, "Client");
 
             user.ProfilePictureUrl = await this.imageService.UploadImage(model.ProfilePicture, "images", user);
             await userManager.UpdateAsync(user);
@@ -138,6 +126,57 @@ namespace GamaGameHub.Controllers
             await signInManager.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [AllowAnonymous]
+        public IActionResult Profile()
+        {
+            var model = new ProfileViewModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Profile(ProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            //await userManager.GetUserAsync(u => u.);
+
+            var user = new User()
+            {
+                Email = model.Email,
+                UserName = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                Address = model.Address,
+                City = model.City,
+                Country = model.Country
+            };
+
+            var result = await userManager.CreateAsync(user, model.Password);
+
+            await userManager.AddToRoleAsync(user, "Client");
+
+            user.ProfilePictureUrl = await this.imageService.UploadImage(model.ProfilePicture, "images", user);
+            await userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                await signInManager.SignInAsync(user, isPersistent: false);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            foreach (var item in result.Errors)
+            {
+                ModelState.AddModelError(item.Code, item.Description);//gospodina pipa ne bqh az ako gramne
+            }
+
+            return View(model);
         }
     }
 }
