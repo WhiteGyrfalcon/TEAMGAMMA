@@ -10,6 +10,8 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IGameCreatorService, GameCreatorService>();
 
             return services;
         }

@@ -14,11 +14,14 @@ namespace GamaGameHub.Core.Models.Account
 {
     public class RegisterViewModel
     {
-
         [Required]
         [EmailAddress]
         [StringLength(EmailMaxLength, MinimumLength = EmailMinLength)]
         public string Email { get; set; } = null!;
+
+        [Required]
+        [StringLength(UserNameMaxLength, MinimumLength = UsernameMinLength)]
+        public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -29,6 +32,7 @@ namespace GamaGameHub.Core.Models.Account
         [DataType(DataType.Password)]
         public string PasswordRepeat { get; set; } = null!;
 
+        [Required]
         [Phone]
         public string? PhoneNumber { get; set; }
 
@@ -40,6 +44,8 @@ namespace GamaGameHub.Core.Models.Account
 
         [StringLength(CountryMaxLength, MinimumLength = CountryMinLength)]
         public string? Country { get; set; }
+
+        public int YearOfCreating { get; set; }
 
         [StringLength(AdditionalInformationMaxLength, MinimumLength = AdditionalInformationMinLength)]
         public string? AdditionalInformation { get; set; }

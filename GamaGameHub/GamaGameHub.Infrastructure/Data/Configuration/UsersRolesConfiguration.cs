@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GamaGameHub.Infrastructure.Data.Configuration
 {
-    internal class UsersRolesConfiguration : IEntityTypeConfiguration<IdentityUserRole<string>>
+    public class UsersRolesConfiguration : IEntityTypeConfiguration<IdentityUserRole<string>>
     {
         public void Configure(EntityTypeBuilder<IdentityUserRole<string>> builder)
         {

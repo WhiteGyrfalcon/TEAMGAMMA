@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GamaGameHub.Infrastructure.Data.Configuration
 {
-    internal class GenreConfiguration : IEntityTypeConfiguration<Genre>
+    public class GenreConfiguration : IEntityTypeConfiguration<Genre>
     {
         public void Configure(EntityTypeBuilder<Genre> builder)
         {

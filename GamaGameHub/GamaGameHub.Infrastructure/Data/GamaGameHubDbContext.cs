@@ -39,12 +39,18 @@ namespace GamaGameHub.Infrastructure.Data
                 .HasMaxLength(60)
                 .IsRequired();
 
-            
+            builder.Entity<GameGenre>().HasKey(gg => new { gg.GenreId, gg.GameId });
+
+            builder.Entity<GameCategory>().HasKey(gc => new { gc.GameId, gc.CategoryId });
+
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new GenreConfiguration());
             builder.ApplyConfiguration(new GameCreatorConfiguration());
             builder.ApplyConfiguration(new GameConfiguration());
+            builder.ApplyConfiguration(new ImageConfiguration());
+            builder.ApplyConfiguration(new GamesGenresConfigiration());
+            builder.ApplyConfiguration(new GamesCategoriesConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());
             builder.ApplyConfiguration(new UsersRolesConfiguration());
             
