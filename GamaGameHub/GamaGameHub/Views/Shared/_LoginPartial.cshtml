@@ -1,28 +1,25 @@
-
-@using GamaGameHub.Infrastructure.Data.Entities;
-@using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
 <ul class="s-header__nav row">
-@if (SignInManager.IsSignedIn(User))
-{
+    @if (SignInManager.IsSignedIn(User))
+    {
         <li class="nav-item @(@ViewData["Title"]?.ToString() == "Profile" ? "current" : "")">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-controller="Account" asp-page="Profile" title="Profile">Hello @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
+            <a class="nav-link text-dark" asp-area="Identity" asp-controller="Account" asp-action="Profile" title="Profile">Hello @User.Identity?.Name!</a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
         <li class="login-register-nav-item @(@ViewData["Title"]?.ToString() == "Register" ? "current" : "")">
             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-    </li>
+        </li>
         <li class="login-register-nav-item @(@ViewData["Title"]?.ToString() == "Login" ? "current" : "")">
             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-    </li>
-}
+        </li>
+    }
 </ul>

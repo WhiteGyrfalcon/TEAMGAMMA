@@ -1,12 +1,8 @@
 ﻿using GamaGameHub.Core.Contracts;
+using GamaGameHub.Core.Models.User;
 using GamaGameHub.Infrastructure.Data.Common;
 using GamaGameHub.Infrastructure.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GamaGameHub.Core.Services
 {
@@ -27,6 +23,29 @@ namespace GamaGameHub.Core.Services
                 .FirstOrDefaultAsync(u => u.Email == email && u.IsActive == true);
 
             return user != null;
+        }
+
+        public async Task<UserModel> GetUserById(string userId)
+        {
+            User user = await repo.All<User>()
+                                  .Where(u => u.Id == userId)
+                                  .FirstOrDefaultAsync();
+
+            if (user != null)
+            {
+                return new UserModel()
+                {
+                    Email = user.Email,
+                    Username = user.UserName,
+                    PhoneNumber = user.PhoneNumber,
+                    Address = user.Address,
+                    City = user.City,
+                    Country = user.Country,
+                    ProfilePictureUrl = user.ProfilePictureUrl
+                };
+            }
+
+            throw new Exception("User is null!");
         }
     }
 }
