@@ -2,7 +2,7 @@
 @inject UserManager<User> UserManager
 
 <ul class="s-header__nav row">
-    @if (!SignInManager.IsSignedIn(User))
+    @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item @(@ViewData["Title"]?.ToString() == "Profile" ? "current" : "")">
             <a class="nav-link text-dark" asp-area="Identity" asp-controller="Account" asp-action="Profile" title="Profile">Hello @User.Identity?.Name!</a>

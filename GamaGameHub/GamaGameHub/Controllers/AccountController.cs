@@ -1,5 +1,7 @@
 ﻿using GamaGameHub.Core.Contracts;
 using GamaGameHub.Core.Models.Account;
+using GamaGameHub.Core.Models.User;
+using GamaGameHub.Extensions;
 using GamaGameHub.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -13,17 +15,20 @@ namespace GamaGameHub.Controllers
         private readonly SignInManager<User> signInManager;
         private readonly IImageService imageService;
         private readonly IUserService userService;
+        private readonly IGameCreatorService gameCreatorService;
 
         public AccountController(
             UserManager<User> _userManager,
             SignInManager<User> _signInManager,
             IImageService _imageService,
-            IUserService _userService)
+            IUserService _userService,
+            IGameCreatorService _gameCreatorService)
         {
             userManager = _userManager;
             signInManager = _signInManager;
             imageService = _imageService;
             userService = _userService;
+            gameCreatorService = _gameCreatorService;
         }
 
         [HttpGet]
@@ -39,7 +44,7 @@ namespace GamaGameHub.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            
+
             if (await userService.UserByEmailExists(model.Email))
             {
                 ModelState.AddModelError(nameof(model.Email), "There is already a registration with this email!");
@@ -53,7 +58,7 @@ namespace GamaGameHub.Controllers
             var user = new User()
             {
                 Email = model.Email,
-                UserName = model.Email,
+                UserName = model.Username,
                 PhoneNumber = model.PhoneNumber,
                 Address = model.Address,
                 City = model.City,
@@ -61,7 +66,7 @@ namespace GamaGameHub.Controllers
             };
 
             var result = await userManager.CreateAsync(user, model.Password);
-            
+
             await userManager.AddToRoleAsync(user, "Client");
 
             user.ProfilePictureUrl = await this.imageService.UploadImage(model.ProfilePicture, "images", user);
@@ -129,11 +134,10 @@ namespace GamaGameHub.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            var model = new ProfileViewModel();
-
-            return View(model);
+            GameCreatorModel profile = await gameCreatorService.GetGameCreatorByUserId(this.User.Id());
+            return View(profile);
         }
 
         [HttpPost]
@@ -145,12 +149,10 @@ namespace GamaGameHub.Controllers
                 return View(model);
             }
 
-            //await userManager.GetUserAsync(u => u.);
-
             var user = new User()
             {
                 Email = model.Email,
-                UserName = model.Email,
+                UserName = model.Username,
                 PhoneNumber = model.PhoneNumber,
                 Address = model.Address,
                 City = model.City,
@@ -161,8 +163,12 @@ namespace GamaGameHub.Controllers
 
             await userManager.AddToRoleAsync(user, "Client");
 
-            user.ProfilePictureUrl = await this.imageService.UploadImage(model.ProfilePicture, "images", user);
-            await userManager.UpdateAsync(user);
+            if (model.ProfilePicture != null)
+            {
+                user.ProfilePictureUrl = await this.imageService.UploadImage(model.ProfilePicture, "images", user);
+                await userManager.UpdateAsync(user);
+            }
+
 
             if (result.Succeeded)
             {

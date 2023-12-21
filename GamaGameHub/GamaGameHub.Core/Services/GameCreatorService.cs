@@ -1,22 +1,21 @@
 ﻿using GamaGameHub.Core.Contracts;
+using GamaGameHub.Core.Models.User;
 using GamaGameHub.Infrastructure.Data.Common;
 using GamaGameHub.Infrastructure.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace GamaGameHub.Core.Services
 {
-    public class GameCreatorService : IGameCreatorService
+    public class GameCreatorService :  IGameCreatorService
     {
 
         private readonly IRepository repo;
+        private readonly IUserService userService;
 
-        public GameCreatorService(IRepository _repo)
+        public GameCreatorService(IRepository _repo, IUserService _userService)
         {
             repo = _repo;
+            userService = _userService;
         }
 
         public async Task Create(string userId, string AdditionalInformation, int yearOfCreating)
@@ -30,6 +29,32 @@ namespace GamaGameHub.Core.Services
 
             await repo.AddAsync(gameCreator);
             await repo.SaveChangesAsync();
+        }
+        public async Task<GameCreatorModel> GetGameCreatorByUserId(string userId)
+        {
+            GameCreator gameCreator = await repo.All<GameCreator>()
+                                                .Where(gc => gc.UserId == userId)
+                                                .FirstOrDefaultAsync();
+
+            UserModel user = await userService.GetUserById(userId);
+
+            if (user != null)
+            {
+                return new GameCreatorModel()
+                {
+                    Email = user.Email,
+                    Username = user.Username,
+                    PhoneNumber = user.PhoneNumber,
+                    Address = user.Address,
+                    City = user.City,
+                    Country = user.Country,
+                    ProfilePictureUrl = user.ProfilePictureUrl,
+                    AdditionalInformation = gameCreator?.AdditionalInformation,
+                    YearOfCreating = gameCreator?.YearOfCreating
+                };
+            }
+
+            throw new Exception("User is null!");
         }
     }
 }

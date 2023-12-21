@@ -14,6 +14,10 @@ namespace GamaGameHub.Core.Models.Account
         public string Email { get; set; } = null!;
 
         [Required]
+        [StringLength(UsernameMaxLength, MinimumLength = UserNameMinLength)]
+        public string Username { get; set; } = null!;
+
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
 
