@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GamaGameHub.Infrastructure.Data.Configuration
 {
-    internal class GameConfiguration : IEntityTypeConfiguration<Game>
+    public class GameConfiguration : IEntityTypeConfiguration<Game>
     {
         public void Configure(EntityTypeBuilder<Game> builder)
         {
@@ -39,7 +39,7 @@ namespace GamaGameHub.Infrastructure.Data.Configuration
                 Id = 2,
                 Name = "Dead by Daylight",
                 Description = "A multiplayer horror game where one player takes on the role of the savage Killer, and other four players play as Survivors, trying to escape.",
-                Thumbnail = "https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/05/dead_by_daylight_splash.jpg?q=50&fit=contain&w=1140&h=&dpr=1.5",
+                Thumbnail = "https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_DeadByDaylight_image1280w.jpg",
                 CreatedOn = DateTime.ParseExact("14-06-2016", "dd-MM-yyyy", CultureInfo.CurrentCulture),
                 GameCreatorId = 2,
                 AverageStars = 3
@@ -52,7 +52,7 @@ namespace GamaGameHub.Infrastructure.Data.Configuration
                 Id = 3,
                 Name = "EA SPORTS FC™ 24",
                 Description = "The World's Game: the most true-to-football experience ever with HyperMotionV, PlayStyles optimized by Opta, and an enhanced Frostbite™ Engine.",
-                Thumbnail = "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000061749/bd653d83bdcc1613cfacae62845933633ce97fffc52e7e4070014eb41f9e75f7",
+                Thumbnail = "https://image-cdn.essentiallysports.com/wp-content/uploads/EA-Sports-FC-24-1536x864.jpg",
                 CreatedOn = DateTime.ParseExact("29-09-2023", "dd-MM-yyyy", CultureInfo.CurrentCulture),
                 GameCreatorId = 1,
                 AverageStars = 5
@@ -65,7 +65,7 @@ namespace GamaGameHub.Infrastructure.Data.Configuration
                 Id = 4,
                 Name = "Battlefield™ 2042",
                 Description = "First-person shooter, marks the return to the iconic warfare of the franchise. With a cutting-edge arsenal, you can engage in multiplayer battles.",
-                Thumbnail = "https://cdn1.epicgames.com/offer/52f57f57120c440fad9bfa0e6c279317/EGS_Battlefield2042_DICE_S1_2560x1440-4fd7701f78a23c971e429093fc1f6341",
+                Thumbnail = "https://assets.xboxservices.com/assets/71/99/71999807-558a-4640-b29a-cb13a721c4bd.jpg?n=299441_GLP-Page-Hero-0_1083x609.jpg",
                 CreatedOn = DateTime.ParseExact("19-11-2021", "dd-MM-yyyy", CultureInfo.CurrentCulture),
                 GameCreatorId = 2,
                 AverageStars = 2
@@ -91,7 +91,7 @@ namespace GamaGameHub.Infrastructure.Data.Configuration
                 Id = 6,
                 Name = "Cyberpunk 2077",
                 Description = "Open-world, action-adventure RPG set in the Night City, where you play as a cyberpunk mercenary wrapped up in a do-or-die fight for survival.",
-                Thumbnail = "https://cdn1.epicgames.com/offer/77f2b98e2cef40c8a7437518bf420e47/EGS_Cyberpunk2077_CDPROJEKTRED_S1_03_2560x1440-359e77d3cd0a40aebf3bbc130d14c5c7",
+                Thumbnail = "https://static.cdprojektred.com/cms.cdprojektred.com/16x9_big/b9ea2dc46d95cf9fa3f77209e27ae7a6488368f1-1920x1080.jpg",
                 CreatedOn = DateTime.ParseExact("10-12-2020", "dd-MM-yyyy", CultureInfo.CurrentCulture),
                 GameCreatorId = 2,
                 AverageStars = 3
@@ -130,7 +130,7 @@ namespace GamaGameHub.Infrastructure.Data.Configuration
                 Id = 9,
                 Name = "The Devourer: Hunted Souls",
                 Description = "Play as a paranormal investigator in our hybrid between first person survival and psychological horror story game.",
-                Thumbnail = "https://cdn.akamai.steamstatic.com/steam/apps/2309400/capsule_616x353.jpg?t=1698626279",
+                Thumbnail = "https://gamefabrique.ru/i/pc/the-devourer-hunted-souls.jpg",
                 CreatedOn = DateTime.ParseExact("26-10-2023", "dd-MM-yyyy", CultureInfo.CurrentCulture),
                 GameCreatorId = 1,
                 AverageStars = 4
