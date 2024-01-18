@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,10 +133,12 @@ namespace GamaGameHub.Infrastructure.Data.Configuration
 
             user.PasswordHash =
             hasher.HashPassword(user, "111111");
-
+            
             users.Add(user);
 
             return users;
         }
+
+
     }
 }
