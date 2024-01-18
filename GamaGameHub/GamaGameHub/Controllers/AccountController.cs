@@ -67,9 +67,21 @@ namespace GamaGameHub.Controllers
 
             var result = await userManager.CreateAsync(user, model.Password);
 
-            await userManager.AddToRoleAsync(user, "Client");
+            if (model.AdditionalInformation != null || model.YearOfCreating != 0)
+            {
+                await gameCreatorService.Create(user.Id, model.AdditionalInformation, model.YearOfCreating);
+                await userManager.AddToRoleAsync(user, "GameCreator");
+            }
+            else
+            {
+                await userManager.AddToRoleAsync(user, "Client");
+            }
 
-            user.ProfilePictureUrl = await this.imageService.UploadImage(model.ProfilePicture, "images", user);
+            if (model.ProfilePicture != null)
+            {
+                user.ProfilePictureUrl = await this.imageService.UploadImage(model.ProfilePicture, "images", user);
+                await userManager.UpdateAsync(user);
+            }
             await userManager.UpdateAsync(user);
 
             if (result.Succeeded)
@@ -133,7 +145,7 @@ namespace GamaGameHub.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [AllowAnonymous]
+        [HttpGet]
         public async Task<IActionResult> Profile()
         {
             GameCreatorModel profile = await gameCreatorService.GetGameCreatorByUserId(this.User.Id());
@@ -141,45 +153,40 @@ namespace GamaGameHub.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Profile(ProfileViewModel model)
+        public async Task<IActionResult> Profile(GameCreatorModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
+            var user = await userManager.FindByEmailAsync(model.Email);
+            user.UserName = model.Username;
+            user.PhoneNumber = model.PhoneNumber;
+            user.Address = model.Address;
+            user.City = model.City;
+            user.Country = model.Country;
 
-            var user = new User()
+            var result = await userManager.ChangePasswordAsync(user, model.OldPassword, model.Password);
+            foreach (var item in result.Errors)
             {
-                Email = model.Email,
-                UserName = model.Username,
-                PhoneNumber = model.PhoneNumber,
-                Address = model.Address,
-                City = model.City,
-                Country = model.Country
-            };
-
-            var result = await userManager.CreateAsync(user, model.Password);
-
-            await userManager.AddToRoleAsync(user, "Client");
-
-            if (model.ProfilePicture != null)
-            {
-                user.ProfilePictureUrl = await this.imageService.UploadImage(model.ProfilePicture, "images", user);
-                await userManager.UpdateAsync(user);
+                ModelState.AddModelError(item.Code, item.Description);
             }
 
+            result = await userManager.UpdateAsync(user);
+            if (await userManager.IsInRoleAsync(user, "GameCreator"))
+            {
+                await gameCreatorService.Update(this.User.Id(), model.AdditionalInformation, model.YearOfCreating);
+            }
 
             if (result.Succeeded)
             {
-                await signInManager.SignInAsync(user, isPersistent: false);
-
+                await signInManager.RefreshSignInAsync(user);
                 return RedirectToAction("Index", "Home");
             }
 
             foreach (var item in result.Errors)
             {
-                ModelState.AddModelError(item.Code, item.Description);//gospodina pipa ne bqh az ako gramne
+                ModelState.AddModelError(item.Code, item.Description);
             }
 
             return View(model);

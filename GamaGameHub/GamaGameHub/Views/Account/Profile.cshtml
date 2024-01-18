@@ -10,45 +10,46 @@
 
         <h3 class="h-add-bottom">Edit Profile</h3>
 
-        <form>
-            <div>
-                <label for="sampleInput">Your email<span class="mandatory">*</span></label>
-                <input class="h-full-width" type="email" placeholder="@Model.Email" id="sampleInput" disabled>
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
+        <form method="post" enctype="multipart/form-data">
+            <input asp-for="Email" class="h-full-width" type="email" value="@Model.Email" hidden>
             <div>
                 <label for="sampleInput">Username<span class="mandatory">*</span></label>
-                <input class="h-full-width" type="text" id="sampleInput" value="@Model.Username">
+                <input asp-for="Username" class="h-full-width" type="text" value="@Model.Username">
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div>
+                <label for="sampleInput">Old Password<span class="mandatory">*</span></label>
+                <input asp-for="OldPassword" class="h-full-width" type="password" placeholder="123asd123">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div>
                 <label for="sampleInput">Password<span class="mandatory">*</span></label>
-                <input class="h-full-width" type="password" placeholder="123asd123" id="sampleInput">
+                <input asp-for="Password" class="h-full-width" type="password" placeholder="123asd123">
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div>
                 <label for="sampleInput">Repeat password<span class="mandatory">*</span></label>
-                <input class="h-full-width" type="password" placeholder="123asd123" id="sampleInput">
+                <input asp-for="PasswordRepeat" class="h-full-width" type="password" placeholder="123asd123">
                 <span asp-validation-for="PasswordRepeat" class="text-danger"></span>
             </div>
             <div>
                 <label for="sampleInput">Your Phone</label>
-                <input class="h-full-width" type="text" value="@Model.PhoneNumber" id="sampleInput">
+                <input asp-for="PhoneNumber" class="h-full-width" type="text" value="@Model.PhoneNumber">
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div>
                 <label for="sampleInput">Your Address</label>
-                <input class="h-full-width" type="text" value="@Model.Address" id="sampleInput">
+                <input asp-for="Address" class="h-full-width" type="text" value="@Model.Address">
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div>
                 <label for="sampleInput">Your City</label>
-                <input class="h-full-width" type="text" value="@Model.City" id="sampleInput">
+                <input asp-for="City" class="h-full-width" type="text" value="@Model.City">
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
             <div>
                 <label for="sampleInput">Your Country</label>
-                <input class="h-full-width" type="text" value="@Model.Country" id="sampleInput">
+                <input asp-for="Country" class="h-full-width" type="text" value="@Model.Country">
                 <span asp-validation-for="Country" class="text-danger"></span>
             </div>
             @if (User.IsInRole("GameCreator"))
@@ -65,9 +66,10 @@
                 </div>
             }
 
-            <input class="btn--primary h-full-width" type="submit" value="Edit Profile">
+            <input asp-controller="Account" asp-action="Profile" class="btn--primary h-full-width" type="submit" value="Submit">
         </form>
 
     </div>
 
 </div>
+

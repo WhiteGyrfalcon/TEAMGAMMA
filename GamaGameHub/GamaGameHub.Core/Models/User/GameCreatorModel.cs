@@ -2,7 +2,8 @@
 {
     public class GameCreatorModel : UserModel
     {
-        public int? YearOfCreating { get; set; }
+        public string OldPassword { get; set; }
+        public int YearOfCreating { get; set; }
         public string? AdditionalInformation { get; set; }
     }
 }
