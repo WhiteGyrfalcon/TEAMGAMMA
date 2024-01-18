@@ -6,5 +6,6 @@ namespace GamaGameHub.Core.Contracts
     {
         Task Create(string userId, string AdditionalInformation, int yearOfCreating);
         Task<GameCreatorModel> GetGameCreatorByUserId(string userId);
+        Task Update(string userId, string? AdditionalInformation, int yearOfCreating);
     }
 }

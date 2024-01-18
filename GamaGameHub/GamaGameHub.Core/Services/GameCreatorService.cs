@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GamaGameHub.Core.Services
 {
-    public class GameCreatorService :  IGameCreatorService
+    public class GameCreatorService : IGameCreatorService
     {
 
         private readonly IRepository repo;
@@ -30,15 +30,26 @@ namespace GamaGameHub.Core.Services
             await repo.AddAsync(gameCreator);
             await repo.SaveChangesAsync();
         }
+
+        public async Task Update(string userId, string? AdditionalInformation, int yearOfCreating)
+        {
+            var gameCreator = await GetGameCreatorByUserId(userId);
+
+            gameCreator.AdditionalInformation = AdditionalInformation;
+            gameCreator.YearOfCreating = yearOfCreating;
+
+            await repo.SaveChangesAsync();
+        }
+
         public async Task<GameCreatorModel> GetGameCreatorByUserId(string userId)
         {
             GameCreator gameCreator = await repo.All<GameCreator>()
                                                 .Where(gc => gc.UserId == userId)
                                                 .FirstOrDefaultAsync();
-
+            
             UserModel user = await userService.GetUserById(userId);
 
-            if (user != null)
+            if (gameCreator != null)
             {
                 return new GameCreatorModel()
                 {
@@ -50,11 +61,27 @@ namespace GamaGameHub.Core.Services
                     Country = user.Country,
                     ProfilePictureUrl = user.ProfilePictureUrl,
                     AdditionalInformation = gameCreator?.AdditionalInformation,
-                    YearOfCreating = gameCreator?.YearOfCreating
+                    YearOfCreating = gameCreator.YearOfCreating
+                };
+            }
+            else if(user != null)
+            {
+                return new GameCreatorModel()
+                {
+                    Email = user.Email,
+                    Username = user.Username,
+                    PhoneNumber = user.PhoneNumber,
+                    Address = user.Address,
+                    City = user.City,
+                    Country = user.Country,
+                    ProfilePictureUrl = user.ProfilePictureUrl,
+                    // TODO this should be refactored
+                    AdditionalInformation = null,
+                    YearOfCreating = -1
                 };
             }
 
-            throw new Exception("User is null!");
+            throw new ArgumentException("User is null!");
         }
     }
 }
