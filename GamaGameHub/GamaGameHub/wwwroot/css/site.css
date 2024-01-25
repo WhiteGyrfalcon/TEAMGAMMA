@@ -16,6 +16,24 @@ html {
 body {
   margin-bottom: 60px;
 }*/
+.test-text{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.test {
+    flex: 1;
+    flex-direction: row;
+}
+.test1 {
+    margin-top: 60px;
+}
+.test2{
+    margin-top: 50px;
+}
+.test3{
+    max-height: 30px;
+}
 .profilePictureLabel {
     cursor: pointer;
     /* Style as you please, it will become the visible UI component. */
