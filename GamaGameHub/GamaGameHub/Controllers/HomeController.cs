@@ -1,23 +1,31 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using GamaGameHub.Core.Contracts;
+using GamaGameHub.Core.Models.Game;
 using GamaGameHub.Core.Models.Home;
-using System.Net.Mail;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Net.Mail;
 
 namespace GamaGameHub.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IGameService gameService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IGameService _gameService)
         {
             _logger = logger;
+            gameService = _gameService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            ICollection<GameModel> games = await gameService.GetGames();
+
+            return View(games);
         }
         public IActionResult AboutUs()
         {
