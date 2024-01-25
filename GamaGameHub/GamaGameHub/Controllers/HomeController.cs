@@ -1,8 +1,10 @@
 using GamaGameHub.Core.Contracts;
 using GamaGameHub.Core.Models.Game;
+using GamaGameHub.Core.Models.Home;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using System.Net;
+using System.Net.Mail;
 
 namespace GamaGameHub.Controllers
 {
