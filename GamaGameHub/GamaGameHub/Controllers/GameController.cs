@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GamaGameHub.Controllers
 {
-    
+    [Authorize]
     public class GameController : Controller
     {
         private readonly IGameService gameService;
