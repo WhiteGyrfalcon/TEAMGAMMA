@@ -1,6 +1,7 @@
 using GamaGameHub.Core.Contracts;
 using GamaGameHub.Core.Models.Game;
 using GamaGameHub.Core.Models.Home;
+using GamaGameHub.Core.Models.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -21,11 +22,22 @@ namespace GamaGameHub.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            ICollection<GameModel> games = await gameService.GetGames();
+            var games = await this.gameService.GetGames();
 
-            return View(games);
+            if (page < 1) { page = 1; }
+
+            int totalItems = games.Count();
+            Pager pager = new Pager(totalItems, page);
+            int skipGames = (page - 1) * pager.PageSize;
+
+            var data = games.Skip(skipGames).Take(pager.PageSize).ToList();
+
+            pager.Controller = "Home";
+            ViewBag.Pager = pager;
+
+            return View(data);
         }
         public IActionResult AboutUs()
         {
