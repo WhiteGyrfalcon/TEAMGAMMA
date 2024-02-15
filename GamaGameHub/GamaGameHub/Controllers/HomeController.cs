@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Net.Mail;
+using Microsoft.Extensions.Configuration;
 
 namespace GamaGameHub.Controllers
 {
@@ -55,7 +56,9 @@ namespace GamaGameHub.Controllers
         {
             if (!ModelState.IsValid) { return View(model); }
 
-            MailMessage mailMessage = new MailMessage(model.From,"meribelcheva@gmail.com");
+            var config = new ConfigurationBuilder().AddUserSecrets<HomeController>().Build();
+
+            MailMessage mailMessage = new MailMessage(model.From, config["GmailUserName"]);
             mailMessage.Subject = model.Subject;
             mailMessage.Body = $"Name: {model.SenderName}\nEmail: {model.From}\nMessage: {model.Body}\n";
             mailMessage.IsBodyHtml = false;
@@ -64,7 +67,7 @@ namespace GamaGameHub.Controllers
             smtpClient.Host = "smtp.gmail.com";
             smtpClient.Port = 587;
             smtpClient.EnableSsl = true;
-            smtpClient.Credentials = new NetworkCredential("meribelcheva@gmail.com", "beky gwha odgp hbnj");
+            smtpClient.Credentials = new NetworkCredential(config["GmailUserName"], config["GmailUserPass"]);
             smtpClient.Send(mailMessage);
 
             return View();
