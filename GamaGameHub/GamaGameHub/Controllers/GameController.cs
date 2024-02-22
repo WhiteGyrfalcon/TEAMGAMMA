@@ -17,19 +17,11 @@ namespace GamaGameHub.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int page = 1)
         {
-            var games = await this.gameService.GetGames();
+            var games = await this.gameService.GetGames(page, "Game");
 
-            if (page < 1) { page = 1; }
+            ViewBag.Pager = this.gameService.Pager;
 
-            int totalItems = games.Count();
-            Pager pager = new Pager(totalItems, page);
-            int skipGames = (page - 1) * pager.PageSize;
-
-            var data = games.Skip(skipGames).Take(pager.PageSize).ToList();
-            pager.Controller = "Game";
-            ViewBag.Pager = pager;
-
-            return View(data);
+            return View(games);
         }
     }
 }

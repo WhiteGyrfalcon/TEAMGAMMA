@@ -15,16 +15,10 @@ namespace GamaGameHub.Core.Models.Pagination
             int totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);
             int currentPage = page;
 
-            int startPage = currentPage - 2;
-            int endPage = currentPage + 2;
+            int startPage = currentPage - 2 <= 0 ? 1 : currentPage - 2;
+            int endPage = currentPage + 2 > totalPages ? totalPages : currentPage + 2;
 
-            if (startPage <= 0) { startPage = 1; }
-
-            if (endPage > totalPages)
-            {
-                endPage = totalPages;
-                if (endPage > 5) { startPage = endPage - 4; }
-            }
+            if (endPage > 5) { startPage = endPage - 4; }
 
             this.TotalItems = totalItems;
             this.CurrentPage = currentPage;

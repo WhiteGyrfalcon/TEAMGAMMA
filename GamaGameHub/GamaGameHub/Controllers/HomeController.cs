@@ -14,31 +14,23 @@ namespace GamaGameHub.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IGameService gameService;
+        private readonly IHomeService homeService;
 
-        public HomeController(ILogger<HomeController> logger, IGameService _gameService)
+        public HomeController(ILogger<HomeController> logger, IGameService _gameService, IHomeService homeService)
         {
             _logger = logger;
             gameService = _gameService;
+            this.homeService = homeService;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Index(int page = 1)
         {
-            var games = await this.gameService.GetGames();
+            var games = await this.gameService.GetGames(page, "Home");
 
-            if (page < 1) { page = 1; }
-
-            int totalItems = games.Count();
-            Pager pager = new Pager(totalItems, page);
-            int skipGames = (page - 1) * pager.PageSize;
-
-            var data = games.Skip(skipGames).Take(pager.PageSize).ToList();
-
-            pager.Controller = "Home";
-            ViewBag.Pager = pager;
-
-            return View(data);
+            ViewBag.Pager = this.gameService.Pager;
+            return View(games);
         }
         public IActionResult AboutUs()
         {
@@ -56,20 +48,7 @@ namespace GamaGameHub.Controllers
         {
             if (!ModelState.IsValid) { return View(model); }
 
-            var config = new ConfigurationBuilder().AddUserSecrets<HomeController>().Build();
-
-            MailMessage mailMessage = new MailMessage(model.From, config["GmailUserName"]);
-            mailMessage.Subject = model.Subject;
-            mailMessage.Body = $"Name: {model.SenderName}\nEmail: {model.From}\nMessage: {model.Body}\n";
-            mailMessage.IsBodyHtml = false;
-
-            SmtpClient smtpClient = new SmtpClient();
-            smtpClient.Host = "smtp.gmail.com";
-            smtpClient.Port = 587;
-            smtpClient.EnableSsl = true;
-            smtpClient.Credentials = new NetworkCredential(config["GmailUserName"], config["GmailUserPass"]);
-            smtpClient.Send(mailMessage);
-
+            this.homeService.ContactUs(model);
             return View();
         }
     }

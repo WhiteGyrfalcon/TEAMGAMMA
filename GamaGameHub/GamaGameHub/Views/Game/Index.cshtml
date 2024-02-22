@@ -9,23 +9,4 @@
     }
 }
 
-@* expample
-    <div class="text-center row">
-    @foreach (var game in Model)
-    {
-        <div class="card col-4" style="width: 20rem;">
-            <img class="card-img-top" src="@game.Thumbnail" height="350" alt="Book Image">
-
-            <div class="card-body">
-
-                <h5 class="card-title mt-1">@game.Name</h5>
-                <p class="mb-0">Genres: @string.Join(", ", game.Genres)</p>
-                <p class="mb-0">Average stars: @game.AverageStars</p>
-                <p class="mb-0">Created: @game.CreatedOn.ToShortDateString()</p>
-            </div>
-        </div>
-    }
-</div>
-*@
-
 <partial name="_pager" model=@pager />
