@@ -1,6 +1,6 @@
   
 
-![Logo](D://school/2023-2024/софтуерно инжинерство- практика/TEAMGAMMA/GamaGameHub/GamaGameHub/wwwroot/images/logoPNG.png)
+![Logo](TEAMGAMMA/GamaGameHub/GamaGameHub/wwwroot/images/logoPNG.png)
 
 Gamma Game Hub readme
 =====================
@@ -24,7 +24,7 @@ Table of contents
   
   
 
-![Product Name Screen Shot](D://school/2023-2024/софтуерно инжинерство- практика/title.png)
+![Product Name Screen Shot](TEAMGAMMA/GamaGameHub/GamaGameHub/wwwroot/images/title.png)
 
   
   
