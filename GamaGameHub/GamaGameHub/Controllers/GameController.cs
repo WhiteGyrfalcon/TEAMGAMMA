@@ -1,4 +1,6 @@
 ﻿using GamaGameHub.Core.Contracts;
+using GamaGameHub.Core.Models.Pagination;
+using GamaGameHub.Core.Contracts;
 using GamaGameHub.Core.Models.Account;
 using GamaGameHub.Core.Models.Game;
 using Microsoft.AspNetCore.Authorization;
@@ -33,5 +35,16 @@ namespace GamaGameHub.Controllers
                 return this.RedirectToAction("Index", "Home");
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AllGames(int page = 1)
+        {
+            var games = await this.gameService.GetGames(page, "Game");
+
+            ViewBag.Pager = this.gameService.Pager;
+
+            return View(games);
+        }
+
     }
 }

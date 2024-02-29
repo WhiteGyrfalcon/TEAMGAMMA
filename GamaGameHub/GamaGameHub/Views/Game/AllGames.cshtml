@@ -1,0 +1,12 @@
+﻿@model List<GameModel>
+
+@{
+    ViewData["Title"] = "AllGames";
+    GamaGameHub.Core.Models.Pagination.Pager pager = new GamaGameHub.Core.Models.Pagination.Pager();
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+    }
+}
+
+<partial name="_pager" model=@pager />

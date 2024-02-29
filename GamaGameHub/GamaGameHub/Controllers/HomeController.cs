@@ -1,10 +1,12 @@
 using GamaGameHub.Core.Contracts;
 using GamaGameHub.Core.Models.Game;
 using GamaGameHub.Core.Models.Home;
+using GamaGameHub.Core.Models.Pagination;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Net.Mail;
+using Microsoft.Extensions.Configuration;
 
 namespace GamaGameHub.Controllers
 {
@@ -12,19 +14,22 @@ namespace GamaGameHub.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IGameService gameService;
+        private readonly IHomeService homeService;
 
-        public HomeController(ILogger<HomeController> logger, IGameService _gameService)
+        public HomeController(ILogger<HomeController> logger, IGameService _gameService, IHomeService homeService)
         {
             _logger = logger;
             gameService = _gameService;
+            this.homeService = homeService;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            ICollection<GameModel> games = gameService.GetGames();
+            var games = await this.gameService.GetGames(page, "Home");
 
+            ViewBag.Pager = this.gameService.Pager;
             return View(games);
         }
         public IActionResult AboutUs()
@@ -43,18 +48,7 @@ namespace GamaGameHub.Controllers
         {
             if (!ModelState.IsValid) { return View(model); }
 
-            MailMessage mailMessage = new MailMessage(model.From,"meribelcheva@gmail.com");
-            mailMessage.Subject = model.Subject;
-            mailMessage.Body = $"Name: {model.SenderName}\nEmail: {model.From}\nMessage: {model.Body}\n";
-            mailMessage.IsBodyHtml = false;
-
-            SmtpClient smtpClient = new SmtpClient();
-            smtpClient.Host = "smtp.gmail.com";
-            smtpClient.Port = 587;
-            smtpClient.EnableSsl = true;
-            smtpClient.Credentials = new NetworkCredential("meribelcheva@gmail.com", "beky gwha odgp hbnj");
-            smtpClient.Send(mailMessage);
-
+            this.homeService.ContactUs(model);
             return View();
         }
     }

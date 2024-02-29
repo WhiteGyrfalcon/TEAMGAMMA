@@ -1,6 +1,7 @@
 ﻿using GamaGameHub.Core.Contracts;
 using GamaGameHub.Core.Models.Category;
 using GamaGameHub.Core.Models.Game;
+using GamaGameHub.Core.Models.Pagination;
 using GamaGameHub.Core.Models.User;
 using GamaGameHub.Infrastructure.Data.Common;
 using GamaGameHub.Infrastructure.Data.Entities;
@@ -20,7 +21,10 @@ namespace GamaGameHub.Core.Services
             repo = _repo;
             userService = _userService;
             this.commentService = commentService;
+            this.Pager = null!;
         }
+
+        public Pager Pager { get; set; }
 
         public async Task Create(GameFormViewModel model)
         {
@@ -40,17 +44,28 @@ namespace GamaGameHub.Core.Services
             await repo.SaveChangesAsync();
         }
 
-        public ICollection<GameModel> GetGames()
+        public async Task<ICollection<GameModel>> GetGames(int page, string controllerName)
         {
             // TODO think if all this data is needed to be loaded, because thats A LOT
             // of data
             // Furthermore pagination should be implemented
-            Game[] games = repo.All<Game>()
+
+            if (page < 1) { page = 1; }
+
+            int totalItems = await repo.All<Game>().CountAsync();
+            this.Pager = new Pager(totalItems, page);
+            this.Pager.Controller = controllerName;
+            int skipGames = (page - 1) * this.Pager.PageSize;
+
+            Game[] games = await repo.All<Game>()
+                               .Include(game => game.Reviews)
                                .Include(game => game.GamesGenres)
                                .ThenInclude(gameGenre => gameGenre.Genre)
                                .Include(game => game.GamesCategories)
                                .ThenInclude(gameCategory => gameCategory.Category)
-                               .ToArray();
+                               .Skip(skipGames)
+                               .Take(this.Pager.PageSize)
+                               .ToArrayAsync();
 
             if (games.Length != 0)
             {
