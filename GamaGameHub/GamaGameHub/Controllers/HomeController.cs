@@ -21,9 +21,9 @@ namespace GamaGameHub.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            ICollection<GameModel> games = await gameService.GetGames();
+            ICollection<GameModel> games = gameService.GetGames();
 
             return View(games);
         }

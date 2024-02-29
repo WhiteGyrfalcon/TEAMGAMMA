@@ -10,6 +10,7 @@ using static GamaGameHub.Infrastructure.Data.Constants.EntityConstraints.ReviewC
 
 namespace GamaGameHub.Infrastructure.Data.Entities
 {
+    // This should be renamed
     public class Review
     {
         public Review()
@@ -28,14 +29,17 @@ namespace GamaGameHub.Infrastructure.Data.Entities
 
         public User User { get; set; }
 
+        // This should be unnecessary
         [Required]
         [MaxLength(TitleMaxLength)]
         public string Title { get; set; }
 
+        // This should be unnecessary
         [Required]
         [MaxLength(ShortContentMaxLength)]
         public string ShortContent { get; set; }
 
+        // This should be renamed
         [Required]
         [MaxLength(MainContentMaxLength)]
         public string MainContent { get; set; }
@@ -48,6 +52,7 @@ namespace GamaGameHub.Infrastructure.Data.Entities
 
         public Game Game { get; set; }
 
+        // This should be unnecessary
         [Required]
         [Range(StarsMax, StarsMin)]
         public int Stars { get; set; }
@@ -56,6 +61,7 @@ namespace GamaGameHub.Infrastructure.Data.Entities
 
         public bool IsActive { get; set; }
 
+        // This should be unnecessary
         public ICollection<ReviewComment> GameComments { get; set; } = new HashSet<ReviewComment>();
     }
 }

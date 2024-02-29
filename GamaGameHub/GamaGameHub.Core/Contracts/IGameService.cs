@@ -4,6 +4,8 @@ namespace GamaGameHub.Core.Contracts
 {
     public interface IGameService
     {
-        public Task<ICollection<GameModel>> GetGames();
+        public ICollection<GameModel> GetGames();
+
+        public Task<GameModel> GetGame(int id);
     }
 }

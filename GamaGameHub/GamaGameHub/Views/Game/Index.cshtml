@@ -1,0 +1,154 @@
+﻿@model GameModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<section class="s-content s-content--single">
+    <div class="row">
+        <div class="column large-12">
+            <article class="s-post entry format-standard">
+                <div class="s-content__media">
+                    <div class="brick entry featured-grid animate-this">
+                        <div class="entry__content">
+                            <div class="featured-post-slider">
+                                @for (int i = 0; i < Model.ImagesUrls.Count + 1; i++)
+                                {
+                                    <div class="featured-post-slide">
+                                        <div class="f-slide">
+                                            @* TODO handle correctly the images, not the thumbnail only *@
+                                            <div class="f-slide__background" style="background-image:url('@Model.Thumbnail');"></div>
+                                        </div> <!-- f-slide -->
+                                    </div> <!-- featured-post-slide -->
+                                }
+                            </div> <!-- end feature post slider -->
+
+                            <div class="featured-post-nav">
+                                <button class="featured-post-nav__prev">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.707 17.293L8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg>
+                                </button>
+                                <button class="featured-post-nav__next">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.293 17.293l1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path></svg>
+                                </button>
+                            </div> <!-- featured-post-nav -->
+
+                        </div> <!-- end entry content -->
+                    </div> <!-- end entry, featured grid -->
+                </div>
+
+                <div class="s-content__primary">
+                    <h2 class="s-content__title s-content__title--post">@Model.Name</h2>
+                    <ul class="s-content__post-meta">
+                        <li class="date">@Model.CreatedOn</li>
+                        <li class="cat">
+                            @for (int i = 0; i < Model.Genres.Count; i++)
+                            {
+                                <a href="">@Model.Genres.ElementAt(i).Name</a>
+                            }
+                        </li>
+                    </ul>
+                    <p class="lead">@Model.Description</p>
+                    <div class="s-content__author">
+                        <img src="@Model.GameCreator.ProfilePictureUrl" alt="">
+
+                        <div class="about">
+                            <h5>
+                                <a asp-controller="User" asp-action="Index" asp-route-userId="@(Model.GameCreator.Id)" class="thumb-link">
+                                    @Model.GameCreator.Username
+                                </a>
+                            </h5>
+                        </div>
+                    </div> <!-- end s-content__author -->
+
+                    <div style="display: flex; align-items: center; flex-direction: column;">
+                        <h5 class="s-content__title s-content__title--post">Explore more games</h5>
+
+                        <div class="s-content__media">
+                            <div class="brick entry featured-grid animate-this">
+                                <div class="entry__content">
+                                    <div class="featured-post-slider" style="max-width: 400px;">
+                                        @for (int i = 0; i < Model.SuggestedGames.Count; i++)
+                                        {
+                                            <div class="featured-post-slide" style="height: 200px; min-width: 400px;">
+                                                <div class="f-slide">
+                                                    <a asp-controller="Game" asp-action="Index" asp-route-gameId="@(Model.SuggestedGames[i].Id)" class="thumb-link">
+                                                        <div class="f-slide__background" style="background-image:url('@Model.SuggestedGames[i].Thumbnail'); width: 400px; height: 200px;"></div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div class="featured-post-nav">
+                                        <button class="featured-post-nav__prev">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.707 17.293L8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"></path></svg>
+                                        </button>
+                                        <button class="featured-post-nav__next">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.293 17.293l1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"></path></svg>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+    <div class="comments-wrap">
+        <div id="comments" class="row">
+            <div class="column">
+                @*TODO Fix the database regarding reviews
+                they should be unnecessary
+                add a table for gameComments
+                add a table for gameFavourites *@
+                <h3>@Model.Comments.Count Comments</h3>
+
+                <!-- START commentlist -->
+                <ol class="commentlist">
+                    @for (int i = 0; i < Model.Comments.Count; i++)
+                    {
+
+                        <li class="depth-1 comment">
+                            <div class="comment__avatar">
+                                <img class="avatar" src="@Model.Comments[i].Creator.ProfilePictureUrl" alt="" width="50" height="50">
+                            </div>
+                            <div class="comment__content">
+                                <div class="comment__info">
+                                    <div class="comment__author">@Model.Comments[i].Creator.Username</div>
+                                    <div class="comment__meta">
+                                        <div class="comment__time">@Model.Comments[i].CreatedOn</div>
+                                        <div class="comment__reply">
+                                            <a class="comment-reply-link" href="#0">Reply</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="comment__text">
+                                    <p>
+                                        @Model.Comments[i].Content
+                                    </p>
+                                </div>
+                            </div>
+                        </li> <!-- end comment level 1 -->
+                    }
+                </ol>
+                <!-- END commentlist -->
+            </div> <!-- end col-full -->
+        </div> <!-- end comments -->
+
+        <div class="row comment-respond">
+            <div id="respond" class="column">
+                <h3>
+                    Add Comment
+                </h3>
+                <form name="contactForm" id="contactForm" method="post" action="" autocomplete="off">
+                    <div class="message form-field">
+                        <textarea name="cMessage" id="cMessage" class="h-full-width" placeholder="Your Message"></textarea>
+                    </div>
+                    <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large h-full-width" value="Add Comment" type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -13,6 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IGameCreatorService, GameCreatorService>();
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<ICommentService, CommentService>();
 
             return services;
         }

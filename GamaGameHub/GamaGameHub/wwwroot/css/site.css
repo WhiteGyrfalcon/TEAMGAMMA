@@ -5468,6 +5468,9 @@ body.search-is-visible {
     padding-top: var(--vspace-0_25);
     padding-left: 9.6rem;
     position: relative;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 
     .s-content__author a {
@@ -5475,17 +5478,18 @@ body.search-is-visible {
     }
 
     .s-content__author h5 {
-        margin-top: 0;
+        margin-top: 20px;
     }
 
     .s-content__author img {
-        margin: .6rem 0 0 0 !important;
+        /*margin: .6rem 0 0 0 !important;*/
+        margin-right: 1rem;
         width: 6.4rem;
         height: 6.4rem;
         border-radius: 50%;
-        position: absolute;
-        left: 0;
-        top: 0;
+        /*position: absolute;*/
+        /*left: 0;*/
+        /*top: 0;*/
     }
 
     .s-content__author p {

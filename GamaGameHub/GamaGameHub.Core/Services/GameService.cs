@@ -5,12 +5,7 @@ using GamaGameHub.Core.Models.User;
 using GamaGameHub.Infrastructure.Data.Common;
 using GamaGameHub.Infrastructure.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GamaGameHub.Core.Services
 {
@@ -18,11 +13,13 @@ namespace GamaGameHub.Core.Services
     {
         private readonly IRepository repo;
         private readonly IUserService userService;
+        private readonly ICommentService commentService;
 
-        public GameService(IRepository _repo, IUserService _userService)
+        public GameService(IRepository _repo, IUserService _userService, ICommentService commentService)
         {
             repo = _repo;
             userService = _userService;
+            this.commentService = commentService;
         }
 
         public async Task Create(GameFormViewModel model)
@@ -43,13 +40,12 @@ namespace GamaGameHub.Core.Services
             await repo.SaveChangesAsync();
         }
 
-        public async Task<ICollection<GameModel>> GetGames()
+        public ICollection<GameModel> GetGames()
         {
             // TODO think if all this data is needed to be loaded, because thats A LOT
             // of data
             // Furthermore pagination should be implemented
             Game[] games = repo.All<Game>()
-                               .Include(game => game.Reviews)
                                .Include(game => game.GamesGenres)
                                .ThenInclude(gameGenre => gameGenre.Genre)
                                .Include(game => game.GamesCategories)
@@ -60,15 +56,14 @@ namespace GamaGameHub.Core.Services
             {
                 return games.Select(game => new GameModel()
                 {
+                    Id = game.Id,
                     Name = game.Name,
                     Description = game.Description,
                     Thumbnail = game.Thumbnail,
                     CreatedOn = game.CreatedOn,
                     IsActive = game.IsActive,
-                    GameCreatorId = game.GameCreatorId,
                     AverageStars = game.AverageStars,
                     ImagesUrls = game.Images.Select(image => image.UrlPath).ToList(),
-                    ReviewIds = game.Reviews.Select(review => review.Id).ToList(),
                     Genres = game.GamesGenres.Select(gameGenre => new Models.Genre.GenreModel()
                     {
                         Name = gameGenre.Genre.Name,
@@ -82,7 +77,72 @@ namespace GamaGameHub.Core.Services
                 }).ToList();
             }
 
-            throw new Exception("User is null!");
+            throw new Exception("There are no games in the DB!");
+        }
+
+        public async Task<GameModel> GetGame(int id)
+        {
+
+            Game? game = repo.All<Game>(game => game.Id == id)
+                             .Include(game => game.GamesGenres)
+                             .ThenInclude(gameGenre => gameGenre.Genre)
+                             .Include(game => game.Reviews)
+                             .ThenInclude(review => review.User)
+                             .Include(game => game.GameCreator)
+                             .ThenInclude(gameCreator => gameCreator.User)
+                             .FirstOrDefault();
+
+            List<Game> suggestedGames = repo.All<Game>(game => game.Id != id).ToList();
+
+            if (game is not null)
+            {
+                Review[] comments = game.Reviews.ToArray();
+
+                return new GameModel()
+                {
+                    Id = game.Id,
+                    Name = game.Name,
+                    Description = game.Description,
+                    Thumbnail = game.Thumbnail,
+                    CreatedOn = game.CreatedOn,
+                    IsActive = game.IsActive,
+                    AverageStars = game.AverageStars,
+                    ImagesUrls = game.Images.Select(image => image.UrlPath).ToList(),
+                    Comments = commentService.GetCommentsByGame(game),
+                    Genres = game.GamesGenres.Select(gameGenre => new Models.Genre.GenreModel()
+                    {
+                        Name = gameGenre.Genre.Name,
+                        Description = gameGenre.Genre.Description,
+                    }).ToList(),
+                    Categories = game.GamesCategories.Select(gameCategory => new CategoryModel()
+                    {
+                        Name = gameCategory.Category.Name,
+                        Description = gameCategory.Category.Description
+                    }).ToList(),
+                    GameCreator = new UserPartialModel()
+                    {
+                        Id = game.GameCreator.Id.ToString(),
+                        Username = game.GameCreator.User.UserName,
+                        City = game.GameCreator.User.City,
+                        Country = game.GameCreator.User.Country,
+                        ProfilePictureUrl = game.GameCreator.User.ProfilePictureUrl,
+                    },
+                    SuggestedGames = suggestedGames is not null ? suggestedGames.Select(suggestedGame => new GameModel()
+                    {
+                        Id = suggestedGame.Id,
+                        Name = suggestedGame.Name,
+                        Description = suggestedGame.Description,
+                        Thumbnail = suggestedGame.Thumbnail,
+                        CreatedOn = suggestedGame.CreatedOn,
+                        IsActive = suggestedGame.IsActive,
+                        AverageStars = suggestedGame.AverageStars,
+                        ImagesUrls = suggestedGame.Images.Select(image => image.UrlPath).ToList()
+                    }).ToList() : new List<GameModel>()
+                };
+
+            }
+
+            throw new Exception("Game is null!");
         }
     }
 }

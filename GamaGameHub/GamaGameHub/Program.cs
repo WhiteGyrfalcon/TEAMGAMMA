@@ -4,7 +4,6 @@ using GamaGameHub.Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Principal;
 
 namespace GamaGameHub
 {
@@ -44,8 +43,8 @@ namespace GamaGameHub
 
             builder.Services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/User/Login";
-                options.LogoutPath = "/User/Logout";
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
             });
 
             builder.Services.AddApplicationServices();
@@ -76,10 +75,15 @@ namespace GamaGameHub
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+            app.UseEndpoints(endpoints =>
+            {
+                app.MapRazorPages();
+                app.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+
 
             app.Run();
         }

@@ -1,5 +1,7 @@
 ﻿using GamaGameHub.Core.Models.Category;
+using GamaGameHub.Core.Models.Comment;
 using GamaGameHub.Core.Models.Genre;
+using GamaGameHub.Core.Models.User;
 
 namespace GamaGameHub.Core.Models.Game
 {
@@ -16,17 +18,18 @@ namespace GamaGameHub.Core.Models.Game
         public DateTime CreatedOn { get; set; }
 
         public bool IsActive { get; set; }
-
-        public int GameCreatorId { get; set; }
+        public UserPartialModel GameCreator { get; set; }
 
         public int AverageStars { get; set; }
 
         public ICollection<string> ImagesUrls { get; set; } = new List<string>();
 
-        public ICollection<int> ReviewIds { get; set; } = new List<int>();
+        public List<CommentModel> Comments { get; set; } = new List<CommentModel>();
 
         public ICollection<GenreModel> Genres { get; set; } = new List<GenreModel>();
 
         public ICollection<CategoryModel> Categories { get; set; } = new List<CategoryModel>();
+
+        public List<GameModel> SuggestedGames { get; set; } = new List<GameModel>();
     }
 }

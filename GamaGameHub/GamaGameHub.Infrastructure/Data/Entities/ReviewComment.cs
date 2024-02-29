@@ -10,6 +10,7 @@ using static GamaGameHub.Infrastructure.Data.Constants.EntityConstraints.ReviewC
 
 namespace GamaGameHub.Infrastructure.Data.Entities
 {
+    // This should be unnecessary
     public class ReviewComment
     {
         public ReviewComment()
